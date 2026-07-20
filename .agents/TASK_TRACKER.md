@@ -43,15 +43,15 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-03 · Asset Resolver Utility
-**Status:** `[→]` Ready  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Create the abstraction layer between JSON config and Three.js geometry.  
 **Acceptance Criteria:**
-- [ ] `src/shared/utils/assetResolver.js` created
-- [ ] `resolveAsset(assetConfig)` function exported — returns `THREE.Group`
-- [ ] Supports `type: 'procedural'` → calls correct factory from `Buildings.js`
-- [ ] Supports `type: 'gltf'` → loads via `GLTFLoader` with in-memory cache (async)
-- [ ] JSDoc on all exported functions
-- [ ] Zero React imports in this file
+- [x] `src/shared/utils/assetResolver.js` created
+- [x] `resolveAsset(assetConfig)` function exported — returns `THREE.Group`
+- [x] Supports `type: 'procedural'` → calls correct factory from `Buildings.js`
+- [x] Supports `type: 'gltf'` → loads via `GLTFLoader` with in-memory cache (async)
+- [x] JSDoc on all exported functions
+- [x] Zero React imports in this file
 
 **Files touched:** `src/shared/utils/assetResolver.js`
 
@@ -60,7 +60,7 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ## Sprint 2 — State Stores
 
 ### US-04 · Journey Store (Zustand)
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` Ready  
 **Goal:** Global task/chapter progression state with localStorage persistence.  
 **Acceptance Criteria:**
 - [ ] `src/features/journey/store/journeyStore.js` created
@@ -290,11 +290,11 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 
 | Sprint | Stories | Done |
 |---|---|---|
-| Sprint 1 — Foundation | US-01, US-02, US-03 | 2/3 |
+| Sprint 1 — Foundation | US-01, US-02, US-03 | 3/3 |
 | Sprint 2 — Stores | US-04, US-05 | 0/2 |
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 0/3 |
 | Sprint 4 — City Canvas | US-09 → US-15 | 0/7 |
 | Sprint 5 — Level Map | US-16 | 0/1 |
 | Sprint 6 — Polish | US-17, US-18 | 0/2 |
-| **Total** | **18 stories** | **2/18** |
+| **Total** | **18 stories** | **3/18** |
 
