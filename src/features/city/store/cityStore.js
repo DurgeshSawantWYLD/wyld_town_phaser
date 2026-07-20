@@ -83,5 +83,14 @@ export const useCityStore = create()(
       set((state) => {
         state.hoveredMeshId = meshId;
       }),
+
+    /**
+     * Set whether the intro sequence is active.
+     * @param {boolean} active
+     */
+    setIntroActive: (active) =>
+      set((state) => {
+        state.isIntroActive = active;
+      }),
   }))
 );

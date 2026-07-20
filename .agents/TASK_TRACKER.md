@@ -91,21 +91,21 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ## Sprint 3 — App Shell & UI
 
 ### US-06 · App Shell + Title Overlay
-**Status:** `[→]` Ready  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Root React app with conditional view rendering and splash screen.  
 **Acceptance Criteria:**
-- [ ] `src/app/App.jsx` renders `<TitleOverlay>` when `isIntroActive === true`
-- [ ] `src/app/App.jsx` renders `<div id="city-container">` and `<div id="level-container">` with `display: none/block` based on `currentView`
-- [ ] `src/shared/components/TitleOverlay.jsx` renders the WYLD splash with "Enter WYLD Town" button
-- [ ] Button click sets `isIntroActive = false` in `cityStore` via `useGSAP` fade-out animation
-- [ ] `npm run dev` → overlay appears on load
+- [x] `src/app/App.jsx` renders `<TitleOverlay>` when `isIntroActive === true`
+- [x] `src/app/App.jsx` renders `<div id="city-container">` and `<div id="level-container">` with `display: none/block` based on `currentView`
+- [x] `src/shared/components/TitleOverlay.jsx` renders the WYLD splash with "Enter WYLD Town" button
+- [x] Button click sets `isIntroActive = false` in `cityStore` via `useGSAP` fade-out animation
+- [x] `npm run dev` → overlay appears on load
 
 **Files touched:** `src/app/App.jsx`, `src/shared/components/TitleOverlay.jsx`
 
 ---
 
 ### US-07 · HUD Component
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` Ready  
 **Goal:** Top-left HUD with zoom controls + view toggle button.  
 **Acceptance Criteria:**
 - [ ] `src/shared/components/HUD.jsx` created
@@ -291,10 +291,10 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint | Stories | Done |
 |---|---|---|
 | Sprint 1 — Foundation | US-01, US-02, US-03 | 3/3 |
-| Sprint 2 — Stores | US-04, US-05 | 0/2 |
-| Sprint 3 — Shell & UI | US-06, US-07, US-08 | 0/3 |
+| Sprint 2 — Stores | US-04, US-05 | 2/2 |
+| Sprint 3 — Shell & UI | US-06, US-07, US-08 | 1/3 |
 | Sprint 4 — City Canvas | US-09 → US-15 | 0/7 |
 | Sprint 5 — Level Map | US-16 | 0/1 |
 | Sprint 6 — Polish | US-17, US-18 | 0/2 |
-| **Total** | **18 stories** | **3/18** |
+| **Total** | **18 stories** | **6/18** |
 

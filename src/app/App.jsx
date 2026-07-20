@@ -1,46 +1,54 @@
-/**
- * App.jsx — Root application shell.
- * Placeholder for US-01. Full implementation in US-06.
- */
+import { useCityStore } from '@/features/city';
+import TitleOverlay from '@/shared/components/TitleOverlay';
 
+/**
+ * App.jsx — Root React application shell.
+ * Renders the TitleOverlay if intro is active, and toggles between
+ * the city and level views based on the current city store state.
+ */
 export default function App() {
+  const isIntroActive = useCityStore((s) => s.isIntroActive);
+  const currentView = useCityStore((s) => s.currentView);
+
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'radial-gradient(ellipse at 50% 40%, #e8f6ff 0%, #b8d8f0 55%, #8fc4e8 100%)',
-        flexDirection: 'column',
-        gap: '12px',
-      }}
-    >
-      <h1
+    <>
+      {isIntroActive && <TitleOverlay />}
+
+      <div
+        id="city-container"
         style={{
-          fontSize: '64px',
-          fontWeight: 900,
-          letterSpacing: '-2px',
-          background: 'linear-gradient(135deg, #1a7f5a, #2563eb, #7c3aed)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
+          display: currentView === 'city' ? 'block' : 'none',
+          width: '100vw',
+          height: '100vh',
+          position: 'absolute',
+          top: 0,
+          left: 0,
         }}
       >
-        WYLD TOWN
-      </h1>
-      <p
+        {/* City Canvas feature will mount here in US-09 */}
+        <div style={{ color: '#1e3a5f', padding: '24px', fontFamily: 'Outfit, sans-serif' }}>
+          <h2>City View Active</h2>
+          <p>City map canvas will mount here.</p>
+        </div>
+      </div>
+
+      <div
+        id="level-container"
         style={{
-          fontSize: '13px',
-          fontWeight: 600,
-          color: '#5a85a8',
-          letterSpacing: '4px',
-          textTransform: 'uppercase',
+          display: currentView === 'level' ? 'block' : 'none',
+          width: '100vw',
+          height: '100vh',
+          position: 'absolute',
+          top: 0,
+          left: 0,
         }}
       >
-        React scaffold ready ✓
-      </p>
-    </div>
-  )
+        {/* Level Map Canvas feature will mount here in US-16 */}
+        <div style={{ color: '#1e3a5f', padding: '24px', fontFamily: 'Outfit, sans-serif' }}>
+          <h2>Level Map View Active</h2>
+          <p>Candy-crush style level map will mount here.</p>
+        </div>
+      </div>
+    </>
+  );
 }
