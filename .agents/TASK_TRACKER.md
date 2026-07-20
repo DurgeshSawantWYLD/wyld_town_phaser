@@ -185,21 +185,22 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-12 · Ground Layer
-**Status:** `[→]` Ready  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Voronoi island ground rendered from chapter config.  
 **Acceptance Criteria:**
-- [ ] `src/features/city/components/GroundLayer.jsx` created
-- [ ] Calls `rebuildCityGround(activeRegions, COLS, ROWS)` from `Ground.js` in `useMemo`
-- [ ] `<primitive object={group} />` with proper disposal on unmount
-- [ ] Chapter `theme.landColor` applied to region land material
-- [ ] Visual match to original ground rendering
+- [x] `src/features/city/components/GroundLayer.jsx` created
+- [x] Calls `rebuildCityGround(activeRegions, COLS, ROWS)` from `Ground.js` in `useMemo`
+- [x] `<primitive object={group} />` with proper disposal on unmount
+- [x] Chapter `theme.landColor` applied to region land material
+- [x] Visual match to original ground rendering
 
-**Files touched:** `src/features/city/components/GroundLayer.jsx`
+**Completion note:** Refactored rebuildCityGround to output a THREE.Group, integrated GroundLayer inside CityCanvas, and verified disposal on unmount.
+**Files touched:** `src/features/city/components/GroundLayer.jsx`, `src/features/city/components/CityCanvas.jsx`, `src/world/Ground.js`, `src/config.js`
 
 ---
 
 ### US-13 · Roads Layer
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` Ready  
 **Goal:** Dynamic road network generated from chapter task positions.  
 **Acceptance Criteria:**
 - [ ] `src/features/city/components/RoadsLayer.jsx` created

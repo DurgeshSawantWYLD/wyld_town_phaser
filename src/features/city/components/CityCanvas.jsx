@@ -2,8 +2,10 @@ import { Canvas } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import SceneLights from './SceneLights';
+import GroundLayer from './GroundLayer';
 import useCameraController from '../hooks/useCameraController';
 import usePointerInteraction from '../hooks/usePointerInteraction';
+
 
 /**
  * CameraController sub-component.
@@ -60,6 +62,9 @@ export default function CityCanvas() {
 
         {/* Lighting setup */}
         <SceneLights />
+
+        {/* Ground islands/canals */}
+        <GroundLayer />
 
         {/* Postprocessing Bloom effect */}
         <EffectComposer>

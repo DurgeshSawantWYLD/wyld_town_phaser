@@ -438,6 +438,7 @@ export const LAKES = [
 
 // ─── ROAD_SET for quick lookup (used by config consumers) ──────────────────
 export const ROAD_CELLS = new Set(ROADS.map(t => `${t.c},${t.r}`));
+export const ROAD_SET = ROAD_CELLS;
 
 // ─── Decor Buildings — all 10 types, verified road-safe positions ──────────
 // Rule: NO building at any {c,r} that appears in ROADS above

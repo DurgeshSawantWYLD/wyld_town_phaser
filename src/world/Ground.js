@@ -1,6 +1,6 @@
 // src/world/Ground.js
 import * as THREE from 'three';
-import { ROAD_SET } from '../utils.js';
+import { ROAD_SET } from '../config.js';
 
 // ─── Materials ─────────────────────────────────────────────────────────────
 const grassMat     = new THREE.MeshToonMaterial({ color: 0x6dbf67, roughness: 0.8 });   // bright green default grass
@@ -36,7 +36,8 @@ function getLandMaterial(regId, activeRegions) {
   } else {
     // Blend default grass color (0x6dbf67) with the region theme color for distinct region branding (35% theme weight)
     const baseColor = new THREE.Color(0x6dbf67);
-    const regColor = new THREE.Color(reg.color || 0x6dbf67);
+    const landColorVal = (reg.theme && reg.theme.landColor !== undefined) ? reg.theme.landColor : (reg.color || 0x6dbf67);
+    const regColor = new THREE.Color(landColorVal);
     blendedColor = baseColor.clone().lerp(regColor, 0.35);
   }
   
@@ -50,40 +51,59 @@ function getLandMaterial(regId, activeRegions) {
 }
 
 // Rebuilds the grid ground based on the active regions list (forming canals and islands)
+// Can be called as rebuildCityGround(activeRegions, cols, rows) or rebuildCityGround(scene, activeRegions, cols, rows)
 export function rebuildCityGround(scene, activeRegions, cols, rows) {
-  if (currentGroundGroup) {
-    scene.remove(currentGroundGroup);
+  let actualScene = null;
+  let regions = activeRegions;
+  let c = cols;
+  let r = rows;
+
+  if (scene && typeof scene.add !== 'function') {
+    // Shift arguments left if first argument is not a scene/group object
+    r = c;
+    c = regions;
+    regions = scene;
+    actualScene = null;
+  } else {
+    actualScene = scene;
   }
 
-  currentGroundGroup = new THREE.Group();
-  currentGroundGroup.name = 'ground';
+  if (actualScene && currentGroundGroup) {
+    actualScene.remove(currentGroundGroup);
+  }
+
+  const group = new THREE.Group();
+  group.name = 'ground';
+  currentGroundGroup = group;
   
   canalCells.clear();
   landMaterials.clear();
 
-  const regionsList = Object.values(activeRegions);
+  const regionsList = Object.values(regions || {});
 
   // If there are no regions, draw a simple solid grass slab
   if (regionsList.length === 0) {
-    const baseGeo = new THREE.BoxGeometry(cols + 8, 0.2, rows + 8);
+    const baseGeo = new THREE.BoxGeometry(c + 8, 0.2, r + 8);
     const base = new THREE.Mesh(baseGeo, grassMat);
     base.position.set(0, -0.1, 0);
     base.receiveShadow = true;
-    currentGroundGroup.add(base);
-    scene.add(currentGroundGroup);
-    return currentGroundGroup;
+    group.add(base);
+    if (actualScene) {
+      actualScene.add(group);
+    }
+    return group;
   }
 
   // First pass: compute closest region for each cell in the expanded grid
   const cellRegionMap = new Map();
   const margin = 4; // grid padding margin
-  for (let c = -margin; c < cols + margin; c++) {
-    for (let r = -margin; r < rows + margin; r++) {
-      const key = `${c},${r}`;
+  for (let colIndex = -margin; colIndex < c + margin; colIndex++) {
+    for (let rowIndex = -margin; rowIndex < r + margin; rowIndex++) {
+      const key = `${colIndex},${rowIndex}`;
       let minDistance = Infinity;
       let closestReg = null;
       regionsList.forEach(reg => {
-        const dist = Math.abs(c - reg.col) + Math.abs(r - reg.row);
+        const dist = Math.abs(colIndex - reg.col) + Math.abs(rowIndex - reg.row);
         if (dist < minDistance) {
           minDistance = dist;
           closestReg = reg;
@@ -94,17 +114,17 @@ export function rebuildCityGround(scene, activeRegions, cols, rows) {
   }
 
   // Second pass: identify canal cells (on the boundary)
-  for (let c = -margin; c < cols + margin; c++) {
-    for (let r = -margin; r < rows + margin; r++) {
-      const key = `${c},${r}`;
+  for (let colIndex = -margin; colIndex < c + margin; colIndex++) {
+    for (let rowIndex = -margin; rowIndex < r + margin; rowIndex++) {
+      const key = `${colIndex},${rowIndex}`;
       const regId = cellRegionMap.get(key);
       if (!regId) continue;
 
       const neighbors = [
-        `${c+1},${r}`,
-        `${c-1},${r}`,
-        `${c},${r+1}`,
-        `${c},${r-1}`
+        `${colIndex+1},${rowIndex}`,
+        `${colIndex-1},${rowIndex}`,
+        `${colIndex},${rowIndex+1}`,
+        `${colIndex},${rowIndex-1}`
       ];
       let isBorder = false;
       for (const nKey of neighbors) {
@@ -121,11 +141,11 @@ export function rebuildCityGround(scene, activeRegions, cols, rows) {
   }
 
   // Render land and water cell blocks
-  for (let c = -margin; c < cols + margin; c++) {
-    for (let r = -margin; r < rows + margin; r++) {
-      const key = `${c},${r}`;
-      const cx = c - cols / 2;
-      const cz = r - rows / 2;
+  for (let colIndex = -margin; colIndex < c + margin; colIndex++) {
+    for (let rowIndex = -margin; rowIndex < r + margin; rowIndex++) {
+      const key = `${colIndex},${rowIndex}`;
+      const cx = colIndex - c / 2;
+      const cz = rowIndex - r / 2;
 
       if (canalCells.has(key)) {
         // Recessed blue water block
@@ -133,23 +153,25 @@ export function rebuildCityGround(scene, activeRegions, cols, rows) {
         const water = new THREE.Mesh(wGeo, waterMat);
         water.position.set(cx, -0.06, cz);
         water.receiveShadow = true;
-        currentGroundGroup.add(water);
+        group.add(water);
       } else {
         // Raised colored grass block for the region
         const regId = cellRegionMap.get(key);
-        const mat = getLandMaterial(regId, activeRegions);
+        const mat = getLandMaterial(regId, regions);
         
         const gGeo = new THREE.BoxGeometry(1.0, 0.2, 1.0);
         const land = new THREE.Mesh(gGeo, mat);
         land.position.set(cx, -0.1, cz);
         land.receiveShadow = true;
-        currentGroundGroup.add(land);
+        group.add(land);
       }
     }
   }
 
-  scene.add(currentGroundGroup);
-  return currentGroundGroup;
+  if (actualScene) {
+    actualScene.add(group);
+  }
+  return group;
 }
 
 export function createSmoothGround(scene, cols, rows) {
