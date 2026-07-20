@@ -282,15 +282,15 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-18 · Tooltip Component
-**Status:** `[ ]` Backlog  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Floating tooltip that follows the pointer over 3D buildings.  
 **Acceptance Criteria:**
-- [ ] `src/shared/components/Tooltip.jsx` created
-- [ ] Reads `cityStore.hoveredMeshId` to get building title
-- [ ] Follows mouse position (CSS `position: fixed` + `left/top` from pointer event)
-- [ ] Hidden when `hoveredMeshId === null`
+- [x] `src/shared/components/Tooltip.jsx` created
+- [x] Reads `cityStore.hoveredMeshId` to get building title
+- [x] Follows mouse position (CSS `position: fixed` + `left/top` from pointer event)
+- [x] Hidden when `hoveredMeshId === null`
 
-**Files touched:** `src/shared/components/Tooltip.jsx`
+**Files touched:** `src/shared/components/Tooltip.jsx`, `src/app/App.jsx`, `src/features/city/components/CityCanvas.jsx`, `src/features/city/components/RegionLabels.jsx`
 
 ---
 
@@ -303,7 +303,7 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
 | Sprint 4 — City Canvas | US-09 → US-15 | 4/7 |
 | Sprint 5 — Level Map | US-16 | 1/1 |
-| Sprint 6 — Polish | US-17, US-18 | 0/2 |
-| **Total** | **18 stories** | **13/18** |
+| Sprint 6 — Polish | US-17, US-18 | 1/2 |
+| **Total** | **18 stories** | **14/18** |
 
 

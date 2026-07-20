@@ -3,6 +3,7 @@ import { LevelMapCanvas } from '@/features/level-map';
 import TitleOverlay from '@/shared/components/TitleOverlay';
 import HUD from '@/shared/components/HUD';
 import Panel from '@/shared/components/Panel';
+import Tooltip from '@/shared/components/Tooltip';
 
 /**
  * App.jsx — Root React application shell.
@@ -21,6 +22,7 @@ export default function App() {
         <>
           <HUD />
           <Panel />
+          <Tooltip />
         </>
       )}
 

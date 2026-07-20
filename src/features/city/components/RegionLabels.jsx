@@ -5,15 +5,10 @@ import { REGIONS, COLS, ROWS } from '@/config';
 /**
  * RegionLabels component.
  * Renders 3D HTML labels using @react-three/drei's Html overlay.
- * Labels are positioned over the center coordinates of each region.
- * Labels are hidden when intro is active.
+ * Controls visibility via CSS to prevent WebGL context resets on mount/unmount.
  */
 export default function RegionLabels() {
   const isIntroActive = useCityStore((s) => s.isIntroActive);
-
-  if (isIntroActive) {
-    return null;
-  }
 
   return (
     <>
@@ -31,9 +26,8 @@ export default function RegionLabels() {
             >
               <div
                 style={{
-                  background: 'rgba(15, 32, 39, 0.85)',
-                  backdropFilter: 'blur(8px)',
-                  border: `1px solid ${region.theme?.accentColor ? '#' + region.theme.accentColor.toString(16).padStart(6, '0') : '#00e5ff'}`,
+                  background: 'rgba(15, 32, 39, 0.95)',
+                  border: `1.5px solid #${region.color.toString(16).padStart(6, '0')}`,
                   borderRadius: '12px',
                   padding: '8px 16px',
                   color: '#ffffff',
@@ -46,6 +40,9 @@ export default function RegionLabels() {
                   gap: '2px',
                   pointerEvents: 'none',
                   userSelect: 'none',
+                  opacity: isIntroActive ? 0 : 1,
+                  visibility: isIntroActive ? 'hidden' : 'visible',
+                  transition: 'opacity 0.5s ease, visibility 0.5s ease',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
