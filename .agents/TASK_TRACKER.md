@@ -76,13 +76,13 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-05 · City Store (Zustand)
-**Status:** `[→]` Ready  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Camera, view, and panel state for the city canvas.  
 **Acceptance Criteria:**
-- [ ] `src/features/city/store/cityStore.js` created
-- [ ] State: `currentView`, `isIntroActive`, `zoomLevel`, `zoomTarget`, `camTargetOffset`, `panelOpen`, `panelView`, `activeRegionId`, `activeTaskId`, `hoveredMeshId`
-- [ ] Actions: `setView`, `openPanel`, `closePanel`, `panCamera`, `setZoom`, `setHovered`
-- [ ] `src/features/city/index.js` barrel export
+- [x] `src/features/city/store/cityStore.js` created
+- [x] State: `currentView`, `isIntroActive`, `zoomLevel`, `zoomTarget`, `camTargetOffset`, `panelOpen`, `panelView`, `activeRegionId`, `activeTaskId`, `hoveredMeshId`
+- [x] Actions: `setView`, `openPanel`, `closePanel`, `panCamera`, `setZoom`, `setHovered`
+- [x] `src/features/city/index.js` barrel export
 
 **Files touched:** `src/features/city/store/cityStore.js`, `src/features/city/index.js`
 
@@ -91,7 +91,7 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ## Sprint 3 — App Shell & UI
 
 ### US-06 · App Shell + Title Overlay
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` Ready  
 **Goal:** Root React app with conditional view rendering and splash screen.  
 **Acceptance Criteria:**
 - [ ] `src/app/App.jsx` renders `<TitleOverlay>` when `isIntroActive === true`
