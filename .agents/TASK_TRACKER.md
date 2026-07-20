@@ -214,17 +214,18 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-14 · Buildings Layer
-**Status:** `[ ]` Backlog  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Task buildings rendered from chapter config, with hover + click interactions.  
 **Acceptance Criteria:**
-- [ ] `src/features/city/components/BuildingsLayer.jsx` created
-- [ ] Iterates `journeyStore.tasks`, calls `assetResolver.resolveAsset(task.asset)`
-- [ ] R3F `onPointerEnter` → `cityStore.setHovered(meshId)` → tooltip shows
-- [ ] R3F `onClick` → `cityStore.openPanel(regionId, taskId)` → panel opens
-- [ ] Hover scale animation via `useRef` + `useFrame` (NOT setState)
-- [ ] `React.memo` applied
+- [x] `src/features/city/components/BuildingsLayer.jsx` created
+- [x] Iterates `journeyStore.tasks`, calls `assetResolver.resolveAsset(task.asset)`
+- [x] R3F `onPointerEnter` → `cityStore.setHovered(meshId)` → tooltip shows
+- [x] R3F `onClick` → `cityStore.openPanel(regionId, taskId)` → panel opens
+- [x] Hover scale animation via `useRef` + `useFrame` (NOT setState)
+- [x] `React.memo` applied
 
-**Files touched:** `src/features/city/components/BuildingsLayer.jsx`
+**Completion note:** Rendered task buildings on the main CityCanvas with frame-rate independent scaling animation on hover, and pointer events integration.
+**Files touched:** `src/features/city/components/BuildingsLayer.jsx`, `src/features/city/components/CityCanvas.jsx`
 
 ---
 
@@ -299,9 +300,9 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint 1 — Foundation | US-01, US-02, US-03 | 3/3 |
 | Sprint 2 — Stores | US-04, US-05 | 2/2 |
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
-| Sprint 4 — City Canvas | US-09 → US-15 | 3/7 |
+| Sprint 4 — City Canvas | US-09 → US-15 | 4/7 |
 | Sprint 5 — Level Map | US-16 | 0/1 |
 | Sprint 6 — Polish | US-17, US-18 | 0/2 |
-| **Total** | **18 stories** | **11/18** |
+| **Total** | **18 stories** | **12/18** |
 
 

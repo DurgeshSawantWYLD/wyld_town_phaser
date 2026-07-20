@@ -3,6 +3,7 @@ import { OrthographicCamera } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import SceneLights from './SceneLights';
 import GroundLayer from './GroundLayer';
+import BuildingsLayer from './BuildingsLayer';
 import useCameraController from '../hooks/useCameraController';
 import usePointerInteraction from '../hooks/usePointerInteraction';
 
@@ -65,6 +66,9 @@ export default function CityCanvas() {
 
         {/* Ground islands/canals */}
         <GroundLayer />
+
+        {/* Task buildings */}
+        <BuildingsLayer />
 
         {/* Postprocessing Bloom effect */}
         <EffectComposer>
