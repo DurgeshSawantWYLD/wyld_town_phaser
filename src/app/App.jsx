@@ -1,4 +1,5 @@
 import { useCityStore, CityCanvas } from '@/features/city';
+import { LevelMapCanvas } from '@/features/level-map';
 import TitleOverlay from '@/shared/components/TitleOverlay';
 import HUD from '@/shared/components/HUD';
 import Panel from '@/shared/components/Panel';
@@ -50,11 +51,7 @@ export default function App() {
           left: 0,
         }}
       >
-        {/* Level Map Canvas feature will mount here in US-16 */}
-        <div style={{ color: '#1e3a5f', padding: '24px', fontFamily: 'Outfit, sans-serif' }}>
-          <h2>Level Map View Active</h2>
-          <p>Candy-crush style level map will mount here.</p>
-        </div>
+        <LevelMapCanvas />
       </div>
     </>
   );

@@ -246,17 +246,18 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ## Sprint 5 — Level Map
 
 ### US-16 · Level Map Canvas (Faithful Rebuild)
-**Status:** `[ ]` Backlog  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Wrap existing LevelMap.js class in a React R3F canvas, preserving all visuals exactly.  
 **Acceptance Criteria:**
-- [ ] `src/features/level-map/hooks/useLevelMap.js` created — manages `LevelMap` instance lifecycle
-- [ ] `src/features/level-map/components/LevelMapCanvas.jsx` — separate `<Canvas>` wrapping the class
-- [ ] `LevelMap` instance created in `useEffect`, destroyed on unmount
-- [ ] `levelMapInstance.setTasks(orderedTasks, activeTaskId)` called when `journeyStore.tasks` changes
-- [ ] `useFrame` calls `levelMapInstance.update(clock.elapsedTime)`
-- [ ] Task click → `journeyStore.setActiveTask(task.id)` + `cityStore.openPanel`
-- [ ] Visual match to original Level Map (globe, road, candy nodes, parallax)
+- [x] `src/features/level-map/hooks/useLevelMap.js` created — manages `LevelMap` instance lifecycle
+- [x] `src/features/level-map/components/LevelMapCanvas.jsx` — separate `<Canvas>` wrapping the class
+- [x] `LevelMap` instance created in `useEffect`, destroyed on unmount
+- [x] `levelMapInstance.setTasks(orderedTasks, activeTaskId)` called when `journeyStore.tasks` changes
+- [x] `useFrame` calls `levelMapInstance.update(clock.elapsedTime)`
+- [x] Task click → `journeyStore.setActiveTask(task.id)` + `cityStore.openPanel`
+- [x] Visual match to original Level Map (globe, road, candy nodes, parallax)
 
+**Completion note:** Successfully wrapped LevelMap in an R3F Canvas and managed instance lifecycle in useLevelMap, connecting with Zustand stores. Lint and production build verified cleanly.
 **Files touched:** `src/features/level-map/hooks/useLevelMap.js`, `src/features/level-map/components/LevelMapCanvas.jsx`, `src/features/level-map/index.js`
 
 ---
@@ -301,8 +302,8 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint 2 — Stores | US-04, US-05 | 2/2 |
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
 | Sprint 4 — City Canvas | US-09 → US-15 | 4/7 |
-| Sprint 5 — Level Map | US-16 | 0/1 |
+| Sprint 5 — Level Map | US-16 | 1/1 |
 | Sprint 6 — Polish | US-17, US-18 | 0/2 |
-| **Total** | **18 stories** | **12/18** |
+| **Total** | **18 stories** | **13/18** |
 
 
