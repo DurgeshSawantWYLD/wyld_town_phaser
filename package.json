@@ -15,6 +15,7 @@
     "@react-three/fiber": "^8.17.10",
     "@react-three/postprocessing": "^2.16.2",
     "gsap": "^3.12.5",
+    "immer": "^11.1.15",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "three": "^0.167.1",

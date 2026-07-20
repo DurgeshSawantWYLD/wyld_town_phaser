@@ -60,23 +60,23 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ## Sprint 2 — State Stores
 
 ### US-04 · Journey Store (Zustand)
-**Status:** `[→]` Ready  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Global task/chapter progression state with localStorage persistence.  
 **Acceptance Criteria:**
-- [ ] `src/features/journey/store/journeyStore.js` created
-- [ ] `persist` middleware with key `wyld_town_v2`
-- [ ] `immer` middleware for nested state updates
-- [ ] State shape: `{ tasks, activeTaskId, chapterOrder, completedTaskIds }`
-- [ ] Actions: `completeTask(taskId)`, `setActiveTask(taskId)`, `reset()`
-- [ ] `completeTask` correctly unlocks the next task in sequence
-- [ ] `src/features/journey/index.js` barrel export
+- [x] `src/features/journey/store/journeyStore.js` created
+- [x] `persist` middleware with key `wyld_town_v2`
+- [x] `immer` middleware for nested state updates
+- [x] State shape: `{ tasks, activeTaskId, chapterOrder, completedTaskIds }`
+- [x] Actions: `completeTask(taskId)`, `setActiveTask(taskId)`, `reset()`
+- [x] `completeTask` correctly unlocks the next task in sequence
+- [x] `src/features/journey/index.js` barrel export
 
 **Files touched:** `src/features/journey/store/journeyStore.js`, `src/features/journey/index.js`
 
 ---
 
 ### US-05 · City Store (Zustand)
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` Ready  
 **Goal:** Camera, view, and panel state for the city canvas.  
 **Acceptance Criteria:**
 - [ ] `src/features/city/store/cityStore.js` created
