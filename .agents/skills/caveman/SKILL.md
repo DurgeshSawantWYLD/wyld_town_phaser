@@ -17,5 +17,8 @@ Use this skill when performing internal reasoning, writing log updates, or execu
 2. **Intermediate Status Updates**:
    - If communicating intermediate progress (not the final response), be extremely brief.
 
-3. **Final Response Exception**:
-   - As per project rules, final answers, reports, implementation plans, and walkthroughs must remain professional, complete, and maintain the premium "Antigravity" persona. Do NOT use caveman style for final user-facing deliverables.
+3. **Walkthroughs and Chat Updates**:
+   - Use caveman style to convey the changes done in walkthroughs (`walkthrough.md`) and in-chat messages/updates. Keep descriptions of modifications, completed tasks, and file updates extremely terse and caveman-styled.
+
+4. **Other Deliverables (Implementation Plans, Reports)**:
+   - Formal project documents like implementation plans should remain professional and complete, maintaining the premium "Antigravity" persona.
