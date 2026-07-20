@@ -138,22 +138,22 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ## Sprint 4 — City Canvas (R3F)
 
 ### US-09 · City Canvas Shell + Lights
-**Status:** `[→]` Ready  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** R3F Canvas with isometric camera, fog, and lighting matching the original Engine.js.  
 **Acceptance Criteria:**
-- [ ] `src/features/city/components/CityCanvas.jsx` — R3F `<Canvas>` with orthographic camera
-- [ ] `src/features/city/components/SceneLights.jsx` — hemisphere + directional sun + fill
-- [ ] Camera position: `(12, 14, 12)` looking at origin (matching Engine.js)
-- [ ] Background color `0xc8e6f5`, fog `FogExp2(0xc8e6f5, 0.012)`
-- [ ] `<EffectComposer>` + `<Bloom threshold={0.85} strength={0.18} radius={0.3} />`
-- [ ] `npm run dev` → sky-blue background visible
+- [x] `src/features/city/components/CityCanvas.jsx` — R3F `<Canvas>` with orthographic camera
+- [x] `src/features/city/components/SceneLights.jsx` — hemisphere + directional sun + fill
+- [x] Camera position: `(12, 14, 12)` looking at origin (matching Engine.js)
+- [x] Background color `0xc8e6f5`, fog `FogExp2(0xc8e6f5, 0.012)`
+- [x] `<EffectComposer>` + `<Bloom threshold={0.85} strength={0.18} radius={0.3} />`
+- [x] `npm run dev` → sky-blue background visible
 
-**Files touched:** `src/features/city/components/CityCanvas.jsx`, `src/features/city/components/SceneLights.jsx`
+**Files touched:** `src/features/city/components/CityCanvas.jsx`, `src/features/city/components/SceneLights.jsx`, `src/features/city/index.js`, `src/app/App.jsx`
 
 ---
 
 ### US-10 · Camera Controller Hook
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` Ready  
 **Goal:** Smooth zoom and pan camera behaviour via Zustand state.  
 **Acceptance Criteria:**
 - [ ] `src/features/city/hooks/useCameraController.js` created
@@ -295,8 +295,8 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint 1 — Foundation | US-01, US-02, US-03 | 3/3 |
 | Sprint 2 — Stores | US-04, US-05 | 2/2 |
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
-| Sprint 4 — City Canvas | US-09 → US-15 | 0/7 |
+| Sprint 4 — City Canvas | US-09 → US-15 | 1/7 |
 | Sprint 5 — Level Map | US-16 | 0/1 |
 | Sprint 6 — Polish | US-17, US-18 | 0/2 |
-| **Total** | **18 stories** | **8/18** |
+| **Total** | **18 stories** | **9/18** |
 

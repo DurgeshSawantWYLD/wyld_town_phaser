@@ -1,4 +1,4 @@
-import { useCityStore } from '@/features/city';
+import { useCityStore, CityCanvas } from '@/features/city';
 import TitleOverlay from '@/shared/components/TitleOverlay';
 import HUD from '@/shared/components/HUD';
 import Panel from '@/shared/components/Panel';
@@ -36,11 +36,7 @@ export default function App() {
           left: 0,
         }}
       >
-        {/* City Canvas feature will mount here in US-09 */}
-        <div style={{ color: '#1e3a5f', padding: '24px', fontFamily: 'Outfit, sans-serif' }}>
-          <h2>City View Active</h2>
-          <p>City map canvas will mount here.</p>
-        </div>
+        <CityCanvas />
       </div>
 
       <div
