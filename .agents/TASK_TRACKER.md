@@ -105,21 +105,22 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-07 · HUD Component
-**Status:** `[→]` Ready  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Top-left HUD with zoom controls + view toggle button.  
 **Acceptance Criteria:**
-- [ ] `src/shared/components/HUD.jsx` created
-- [ ] Renders zoom in/out/reset buttons — dispatch to `cityStore`
-- [ ] Renders "Level Map / City Map" toggle button — dispatches `setView`
-- [ ] Hidden during intro (`isIntroActive === true`)
-- [ ] `React.memo` applied
+- [x] `src/shared/components/HUD.jsx` created
+- [x] Renders zoom in/out/reset buttons — dispatch to `cityStore`
+- [x] Renders "Level Map / City Map" toggle button — dispatches `setView`
+- [x] Hidden during intro (`isIntroActive === true`)
+- [x] `React.memo` applied
 
-**Files touched:** `src/shared/components/HUD.jsx`
+**Files touched:** `src/shared/components/HUD.jsx`, `src/app/App.jsx`  
+**Completion note:** Added HUD.jsx with GSAP fade-in. Checked with linter and build, both passed perfectly.
 
 ---
 
 ### US-08 · Panel Component (Chapter + Task Views)
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` Ready  
 **Goal:** Right-side detail drawer with chapter view and task view.  
 **Acceptance Criteria:**
 - [ ] `src/shared/components/Panel.jsx` created
@@ -292,9 +293,9 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 |---|---|---|
 | Sprint 1 — Foundation | US-01, US-02, US-03 | 3/3 |
 | Sprint 2 — Stores | US-04, US-05 | 2/2 |
-| Sprint 3 — Shell & UI | US-06, US-07, US-08 | 1/3 |
+| Sprint 3 — Shell & UI | US-06, US-07, US-08 | 2/3 |
 | Sprint 4 — City Canvas | US-09 → US-15 | 0/7 |
 | Sprint 5 — Level Map | US-16 | 0/1 |
 | Sprint 6 — Polish | US-17, US-18 | 0/2 |
-| **Total** | **18 stories** | **6/18** |
+| **Total** | **18 stories** | **7/18** |
 
