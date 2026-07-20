@@ -9,12 +9,25 @@ export const REGIONS = {
     col: 10, row: 8, color: 0x00e5ff,
     unlocks: 'brands', cta: 'Unlock Brands Hub',
     desc: 'Welcome to WYLD Town! The neon central square — your journey begins here.',
+    theme: {
+      skyColors: ['#0d211f', '#122a27', '#1b3c38'],
+      groundColor: 0x1f3b39,
+      parallaxColor: '#2d5754',
+      landColor: 0x6dbf67,
+      roadColor: 0x8a9bb0,
+      accentColor: 0x00e5ff,
+      assets: {
+        decorBuilding: 'civic_landmark',
+        sideBuildings: ['office_tower', 'shop_corner', 'residential_tall'],
+        decorProps: ['fountain', 'archway']
+      }
+    },
     tasks: [
       {
         id: 'welcome_1',
         title: 'Enter WYLD Town',
         desc: 'Approach the welcome plaza fountain to complete the intro sequence.',
-        status: 'unlocked', // unlocked, completed, locked
+        status: 'unlocked',
         col: 10, row: 8,
         asset: { type: 'procedural', shape: 'civic_landmark', height: 0.4, primaryColor: 0x00e5ff },
         rewards: [
@@ -32,6 +45,102 @@ export const REGIONS = {
         rewards: [
           { type: 'coin', value: 150, label: '150 WYLD Coins', icon: '🪙' },
           { type: 'badge', value: 'Welcome Kit', label: 'Welcome Kit', icon: '🎁' }
+        ]
+      },
+      {
+        id: 'welcome_3',
+        title: 'Connect Socials',
+        desc: 'Verify and link your creator accounts to the brand sponsor engine.',
+        status: 'locked',
+        col: 6, row: 5,
+        asset: { type: 'procedural', shape: 'office_tower', height: 0.8, primaryColor: 0xff00ff },
+        rewards: [
+          { type: 'coin', value: 200, label: '200 WYLD Coins', icon: '🪙' },
+          { type: 'xp', value: 100, label: '100 Creator XP', icon: '⚡' }
+        ]
+      },
+      {
+        id: 'welcome_4',
+        title: 'Set Up Camera',
+        desc: 'Install the professional camera rig and neon highlights in the studio.',
+        status: 'locked',
+        col: 15, row: 4,
+        asset: { type: 'procedural', shape: 'residential_tall', height: 0.7, primaryColor: 0xff3399 },
+        rewards: [
+          { type: 'coin', value: 300, label: '300 WYLD Coins', icon: '🪙' },
+          { type: 'xp', value: 150, label: '150 Creator XP', icon: '⚡' }
+        ]
+      },
+      {
+        id: 'welcome_5',
+        title: 'Broadcast Campaign',
+        desc: 'Launch the campaign transmission feed using the tower satellite antenna.',
+        status: 'locked',
+        col: 18, row: 8,
+        asset: { type: 'procedural', shape: 'civic_landmark', height: 0.6, primaryColor: 0x00ff88 },
+        rewards: [
+          { type: 'coin', value: 400, label: '400 WYLD Coins', icon: '🪙' },
+          { type: 'xp', value: 200, label: '200 Creator XP', icon: '⚡' }
+        ]
+      },
+      {
+        id: 'welcome_6',
+        title: 'Review Stats',
+        desc: 'Verify click-through rate, views, and rewards generated in the stats dashboard.',
+        status: 'locked',
+        col: 17, row: 13,
+        asset: { type: 'procedural', shape: 'office_tower', height: 0.75, primaryColor: 0x4488ff },
+        rewards: [
+          { type: 'coin', value: 500, label: '500 WYLD Coins', icon: '🪙' },
+          { type: 'xp', value: 250, label: '250 Creator XP', icon: '⚡' }
+        ]
+      },
+      {
+        id: 'welcome_7',
+        title: 'Browse Products',
+        desc: 'Check the catalog for new brand merchandise and samples.',
+        status: 'locked',
+        col: 6, row: 13,
+        asset: { type: 'procedural', shape: 'industrial_factory', height: 0.5, primaryColor: 0xfffc00 },
+        rewards: [
+          { type: 'coin', value: 600, label: '600 WYLD Coins', icon: '🪙' },
+          { type: 'xp', value: 300, label: '300 Creator XP', icon: '⚡' }
+        ]
+      },
+      {
+        id: 'welcome_8',
+        title: 'Join Creator Meetup',
+        desc: 'Assemble at the pavilion to meet other top performing brand creators.',
+        status: 'locked',
+        col: 11, row: 15,
+        asset: { type: 'procedural', shape: 'civic_landmark', height: 0.4, primaryColor: 0x00ff88 },
+        rewards: [
+          { type: 'coin', value: 800, label: '800 WYLD Coins', icon: '🪙' },
+          { type: 'xp', value: 400, label: '400 Creator XP', icon: '⚡' }
+        ]
+      },
+      {
+        id: 'welcome_9',
+        title: 'Clear Mountain Path',
+        desc: 'Shovel snow off the mountain trails to open the path to the summit.',
+        status: 'locked',
+        col: 6, row: 17,
+        asset: { type: 'procedural', shape: 'office_tower', height: 0.6, primaryColor: 0xb0bec5 },
+        rewards: [
+          { type: 'coin', value: 1100, label: '1100 WYLD Coins', icon: '🪙' },
+          { type: 'xp', value: 450, label: '450 Creator XP', icon: '⚡' }
+        ]
+      },
+      {
+        id: 'welcome_10',
+        title: 'Locate Hidden Oasis',
+        desc: 'Find the secret water spring hidden deep inside the hot dunes.',
+        status: 'locked',
+        col: 16, row: 17,
+        asset: { type: 'procedural', shape: 'civic_landmark', height: 0.5, primaryColor: 0xffb74d },
+        rewards: [
+          { type: 'coin', value: 1300, label: '1300 WYLD Coins', icon: '🪙' },
+          { type: 'xp', value: 500, label: '500 Creator XP', icon: '⚡' }
         ]
       }
     ]
