@@ -200,7 +200,7 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-13 · Roads Layer
-**Status:** `[→]` Ready  
+**Status:** `[→]` In Progress  
 **Goal:** Dynamic road network generated from chapter task positions.  
 **Acceptance Criteria:**
 - [ ] `src/features/city/components/RoadsLayer.jsx` created
@@ -230,16 +230,16 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-15 · Region Labels + Intro Starfield
-**Status:** `[ ]` Backlog  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** 3D HTML labels over the chapter center + intro starfield effect.  
 **Acceptance Criteria:**
-- [ ] `src/features/city/components/RegionLabels.jsx` — `@react-three/drei` `<Html>` label over chapter center
-- [ ] `src/features/city/components/IntroStarfield.jsx` — starfield from `IntroManager.js` logic
-- [ ] Starfield `visible` only when `isIntroActive === true`
-- [ ] Starfield rotated via `ref` in `useFrame` (no setState)
-- [ ] Labels hidden during intro
+- [x] `src/features/city/components/RegionLabels.jsx` — `@react-three/drei` `<Html>` label over chapter center
+- [x] `src/features/city/components/IntroStarfield.jsx` — starfield from `IntroManager.js` logic
+- [x] Starfield `visible` only when `isIntroActive === true`
+- [x] Starfield rotated via `ref` in `useFrame` (no setState)
+- [x] Labels hidden during intro
 
-**Files touched:** `src/features/city/components/RegionLabels.jsx`, `src/features/city/components/IntroStarfield.jsx`
+**Files touched:** `src/features/city/components/RegionLabels.jsx`, `src/features/city/components/IntroStarfield.jsx`, `src/features/city/components/CityCanvas.jsx`
 
 ---
 
