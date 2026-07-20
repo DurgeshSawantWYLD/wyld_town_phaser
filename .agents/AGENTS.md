@@ -243,6 +243,8 @@ Every coding session in this project follows this Standard Operating Procedure.
    - Mark the next story `[→]` (In Progress / Ready for next session).
 2. **Update** `.agents/PROJECT_CONTEXT.md` if any architectural decisions changed during the session.
 3. **Commit and push** changes with a message matching the user story ID: `feat(US-03): GroundLayer R3F component` (e.g. commit and run `git push`).
+4. **Provide** the next task prompt if available.
+
 
 ### File Locations
 | File | Purpose |
