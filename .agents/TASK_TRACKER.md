@@ -120,24 +120,25 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-08 · Panel Component (Chapter + Task Views)
-**Status:** `[→]` Ready  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Right-side detail drawer with chapter view and task view.  
 **Acceptance Criteria:**
-- [ ] `src/shared/components/Panel.jsx` created
-- [ ] `<ChapterView>` sub-component: shows chapter title, emoji, desc, task list
-- [ ] `<TaskView>` sub-component: shows task title, desc, rewards, "Complete Task" button
-- [ ] "Complete Task" calls `journeyStore.completeTask(taskId)`
-- [ ] GSAP slide-in animation on open (uses `useGSAP`)
-- [ ] Task list items are clickable → `journeyStore.setActiveTask` + switch to `<TaskView>`
+- [x] `src/shared/components/Panel.jsx` created
+- [x] `<ChapterView>` sub-component: shows chapter title, emoji, desc, task list
+- [x] `<TaskView>` sub-component: shows task title, desc, rewards, "Complete Task" button
+- [x] "Complete Task" calls `journeyStore.completeTask(taskId)`
+- [x] GSAP slide-in animation on open (uses `useGSAP`)
+- [x] Task list items are clickable → `journeyStore.setActiveTask` + switch to `<TaskView>`
 
-**Files touched:** `src/shared/components/Panel.jsx`
+**Files touched:** `src/shared/components/Panel.jsx`, `src/app/App.jsx`  
+**Completion note:** Panel component fully implemented with responsive GSAP slide animations. Checked with linter and build.
 
 ---
 
 ## Sprint 4 — City Canvas (R3F)
 
 ### US-09 · City Canvas Shell + Lights
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` Ready  
 **Goal:** R3F Canvas with isometric camera, fog, and lighting matching the original Engine.js.  
 **Acceptance Criteria:**
 - [ ] `src/features/city/components/CityCanvas.jsx` — R3F `<Canvas>` with orthographic camera
@@ -293,9 +294,9 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 |---|---|---|
 | Sprint 1 — Foundation | US-01, US-02, US-03 | 3/3 |
 | Sprint 2 — Stores | US-04, US-05 | 2/2 |
-| Sprint 3 — Shell & UI | US-06, US-07, US-08 | 2/3 |
+| Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
 | Sprint 4 — City Canvas | US-09 → US-15 | 0/7 |
 | Sprint 5 — Level Map | US-16 | 0/1 |
 | Sprint 6 — Polish | US-17, US-18 | 0/2 |
-| **Total** | **18 stories** | **7/18** |
+| **Total** | **18 stories** | **8/18** |
 

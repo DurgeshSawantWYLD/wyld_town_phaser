@@ -1,6 +1,7 @@
 import { useCityStore } from '@/features/city';
 import TitleOverlay from '@/shared/components/TitleOverlay';
 import HUD from '@/shared/components/HUD';
+import Panel from '@/shared/components/Panel';
 
 /**
  * App.jsx — Root React application shell.
@@ -13,7 +14,15 @@ export default function App() {
 
   return (
     <>
-      {isIntroActive ? <TitleOverlay /> : <HUD />}
+      {isIntroActive ? (
+        <TitleOverlay />
+      ) : (
+        <>
+          <HUD />
+          <Panel />
+        </>
+      )}
+
 
 
       <div
