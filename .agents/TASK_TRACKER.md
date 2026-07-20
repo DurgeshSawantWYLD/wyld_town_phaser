@@ -153,22 +153,24 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-10 · Camera Controller Hook
-**Status:** `[→]` Ready  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Smooth zoom and pan camera behaviour via Zustand state.  
 **Acceptance Criteria:**
-- [ ] `src/features/city/hooks/useCameraController.js` created
-- [ ] `useFrame` lerps `camTarget` toward `camTargetOffset`
-- [ ] `useFrame` smoothly interpolates `zoomLevel` toward `zoomTarget`
-- [ ] `updateProjection()` updates orthographic frustum correctly
-- [ ] No `setState` inside `useFrame`
+- [x] `src/features/city/hooks/useCameraController.js` created
+- [x] `useFrame` lerps `camTarget` toward `camTargetOffset`
+- [x] `useFrame` smoothly interpolates `zoomLevel` toward `zoomTarget`
+- [x] `updateProjection()` updates orthographic frustum correctly
+- [x] No `setState` inside `useFrame`
 
-**Files touched:** `src/features/city/hooks/useCameraController.js`
+**Completion note:** Smooth lerping and orthographic camera frustum update verified inside R3F frame loop.
+**Files touched:** `src/features/city/hooks/useCameraController.js`, `src/features/city/components/CityCanvas.jsx`, `src/features/city/index.js`
 
 ---
 
 ### US-11 · Pointer Interaction Hook
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` Ready  
 **Goal:** Pan drag, wheel zoom, pinch zoom handled as a clean hook.  
+
 **Acceptance Criteria:**
 - [ ] `src/features/city/hooks/usePointerInteraction.js` created
 - [ ] Pan drag updates `cityStore.camTargetOffset`
@@ -295,8 +297,9 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint 1 — Foundation | US-01, US-02, US-03 | 3/3 |
 | Sprint 2 — Stores | US-04, US-05 | 2/2 |
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
-| Sprint 4 — City Canvas | US-09 → US-15 | 1/7 |
+| Sprint 4 — City Canvas | US-09 → US-15 | 2/7 |
 | Sprint 5 — Level Map | US-16 | 0/1 |
 | Sprint 6 — Polish | US-17, US-18 | 0/2 |
-| **Total** | **18 stories** | **9/18** |
+| **Total** | **18 stories** | **10/18** |
+
 

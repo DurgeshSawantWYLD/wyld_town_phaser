@@ -2,6 +2,16 @@ import { Canvas } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import SceneLights from './SceneLights';
+import useCameraController from '../hooks/useCameraController';
+
+/**
+ * CameraController sub-component.
+ * Invokes the useCameraController hook inside the R3F Canvas context.
+ */
+function CameraController() {
+  useCameraController();
+  return null;
+}
 
 /**
  * CityCanvas component.
@@ -34,6 +44,9 @@ export default function CityCanvas() {
         onUpdate={(self) => self.lookAt(0, 0, 0)}
       />
 
+      {/* Camera controller to handle panning/zooming */}
+      <CameraController />
+
       {/* Lighting setup */}
       <SceneLights />
 
@@ -48,3 +61,4 @@ export default function CityCanvas() {
     </Canvas>
   );
 }
+
