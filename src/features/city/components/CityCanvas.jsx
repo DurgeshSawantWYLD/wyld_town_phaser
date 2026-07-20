@@ -1,6 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
+import { useCityStore } from '../store/cityStore';
 import SceneLights from './SceneLights';
 import GroundLayer from './GroundLayer';
 import BuildingsLayer from './BuildingsLayer';
@@ -27,6 +28,7 @@ function CameraController() {
  */
 export default function CityCanvas() {
   const pointerHandlers = usePointerInteraction();
+  const isIntroActive = useCityStore((s) => s.isIntroActive);
 
   return (
     <div
@@ -70,7 +72,7 @@ export default function CityCanvas() {
         <IntroStarfield />
 
         {/* Region Labels */}
-        <RegionLabels />
+        {!isIntroActive && <RegionLabels />}
 
         {/* Ground islands/canals */}
         <GroundLayer />
