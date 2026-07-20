@@ -168,23 +168,24 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-11 · Pointer Interaction Hook
-**Status:** `[→]` Ready  
+**Status:** `[x]` Done — 2026-07-20  
 **Goal:** Pan drag, wheel zoom, pinch zoom handled as a clean hook.  
 
 **Acceptance Criteria:**
-- [ ] `src/features/city/hooks/usePointerInteraction.js` created
-- [ ] Pan drag updates `cityStore.camTargetOffset`
-- [ ] Mouse wheel updates `cityStore.zoomTarget`
-- [ ] Two-finger pinch updates `cityStore.zoomTarget`
-- [ ] Returns event handler object attached to canvas `<div>`
-- [ ] Disabled during `isIntroActive` and `currentView === 'level'`
+- [x] `src/features/city/hooks/usePointerInteraction.js` created
+- [x] Pan drag updates `cityStore.camTargetOffset`
+- [x] Mouse wheel updates `cityStore.zoomTarget`
+- [x] Two-finger pinch updates `cityStore.zoomTarget`
+- [x] Returns event handler object attached to canvas `<div>`
+- [x] Disabled during `isIntroActive` and `currentView === 'level'`
 
-**Files touched:** `src/features/city/hooks/usePointerInteraction.js`
+**Completion note:** Added drag pan, mouse wheel, and pinch-to-zoom hook. Build and lint verified.
+**Files touched:** `src/features/city/hooks/usePointerInteraction.js`, `src/features/city/components/CityCanvas.jsx`, `src/features/city/index.js`
 
 ---
 
 ### US-12 · Ground Layer
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` Ready  
 **Goal:** Voronoi island ground rendered from chapter config.  
 **Acceptance Criteria:**
 - [ ] `src/features/city/components/GroundLayer.jsx` created
@@ -297,9 +298,9 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint 1 — Foundation | US-01, US-02, US-03 | 3/3 |
 | Sprint 2 — Stores | US-04, US-05 | 2/2 |
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
-| Sprint 4 — City Canvas | US-09 → US-15 | 2/7 |
+| Sprint 4 — City Canvas | US-09 → US-15 | 3/7 |
 | Sprint 5 — Level Map | US-16 | 0/1 |
 | Sprint 6 — Polish | US-17, US-18 | 0/2 |
-| **Total** | **18 stories** | **10/18** |
+| **Total** | **18 stories** | **11/18** |
 
 
