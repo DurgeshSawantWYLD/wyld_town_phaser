@@ -4,6 +4,7 @@ import { useJourneyStore } from '@/features/journey';
 import { REGIONS } from '@/config';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import confetti from 'canvas-confetti';
 
 /**
  * ChapterView sub-component
@@ -252,6 +253,11 @@ const Panel = React.memo(() => {
   const handleCompleteTask = () => {
     if (activeTaskId) {
       completeTask(activeTaskId);
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
     }
   };
 

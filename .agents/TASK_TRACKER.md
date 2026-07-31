@@ -266,19 +266,20 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ## Sprint 6 — Integration & Polish
 
 ### US-17 · End-to-End Integration
-**Status:** `[→]` In Progress  
+**Status:** `[x]` Done — 2026-07-31  
 **Goal:** Wire all features together and verify the full user journey works.  
 **Acceptance Criteria:**
-- [ ] Title overlay → intro → city map renders with ground, roads, 10 buildings
-- [ ] Click building → panel opens with chapter/task data
-- [ ] "Complete Task" → task completes → next unlocks → confetti
-- [ ] Toggle to Level Map → task nodes show correct status
-- [ ] Click task node → panel opens
-- [ ] Journey state persists on refresh
-- [ ] `npm run lint` → 0 errors
-- [ ] `npm run build` → 0 errors, bundle < 5 MB
+- [x] Title overlay → intro → city map renders with ground, roads, 10 buildings
+- [x] Click building → panel opens with chapter/task data
+- [x] "Complete Task" → task completes → next unlocks → confetti
+- [x] Toggle to Level Map → task nodes show correct status
+- [x] Click task node → panel opens
+- [x] Journey state persists on refresh
+- [x] `npm run lint` → 0 errors
+- [x] `npm run build` → 0 errors, bundle < 5 MB
 
-**Files touched:** `src/app/App.jsx` (wiring only)
+**Completion note:** Integrated full end-to-end user journey including canvas confetti on task completion, level map sync, state persistence, clean lint and build.
+**Files touched:** `src/app/App.jsx`, `src/shared/components/Panel.jsx`, `package.json`
 
 ---
 
@@ -304,7 +305,7 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
 | Sprint 4 — City Canvas | US-09 → US-15 | 7/7 |
 | Sprint 5 — Level Map | US-16 | 1/1 |
-| Sprint 6 — Polish | US-17, US-18 | 1/2 |
-| **Total** | **18 stories** | **16/18** |
+| Sprint 6 — Polish | US-17, US-18 | 2/2 |
+| **Total** | **18 stories** | **18/18** |
 
 
