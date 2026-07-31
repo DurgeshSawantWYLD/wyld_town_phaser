@@ -1414,7 +1414,7 @@ export class LevelMap {
   clampRotation(angle) {
     const taskCount = (this.orderedTasks && this.orderedTasks.length > 0) ? this.orderedTasks.length : 1;
     const maxLat = (taskCount - 1) * (this.stepLat || 0.09);
-    return Math.min(0, Math.max(-maxLat, angle));
+    return Math.max(0, Math.min(maxLat, angle));
   }
 
   rebuildParallaxMeshes(regionId) {
@@ -1524,7 +1524,7 @@ export class LevelMap {
     this.transitionRegionColors(initialRegionId);
 
     // Scroll the globe to the active task (clamped to start/end bounds)
-    const targetAngle = this.clampRotation(-targetIndex * this.stepLat);
+    const targetAngle = this.clampRotation(targetIndex * this.stepLat);
     gsap.killTweensOf(this.globeGroup.rotation);
     if (this.isActive) {
       gsap.to(this.globeGroup.rotation, {
@@ -1560,8 +1560,7 @@ export class LevelMap {
     this.taskPathPoints = [];
     this.orderedTasks.forEach((task, index) => {
       const lat = index * stepLat;
-      const lon = 0.05 * Math.sin(index * 0.3); // much smoother, less curvy pattern
-
+      const lon = 0.08 * Math.sin(index * 0.25); // Gentle, subtle road curve
       const pos = this.getSphereCoords(lat, lon, this.globeRadius + 0.025);
       this.taskPathPoints.push({ pos, lat, lon, task });
     });
@@ -1961,9 +1960,9 @@ export class LevelMap {
   }
 
   getSphereCoords(lat, lon, radius) {
-    const x = radius * Math.cos(lat) * Math.sin(lon);
-    const y = radius * Math.sin(lat);
-    const z = radius * Math.cos(lat) * Math.cos(lon);
+    const x = radius * Math.sin(lon);
+    const y = radius * Math.cos(lat) * Math.cos(lon);
+    const z = -radius * Math.sin(lat) * Math.cos(lon);
     return new THREE.Vector3(x, y, z);
   }
 
@@ -1989,7 +1988,7 @@ export class LevelMap {
           this.hasDragged = true;
         }
         const f = 0.003;
-        const targetRot = this.globeGroup.rotation.x + dy * f;
+        const targetRot = this.globeGroup.rotation.x - dy * f;
         this.globeGroup.rotation.x = this.clampRotation(targetRot);
         this.dragStart = { x: e.clientX, y: e.clientY };
       }
@@ -2014,7 +2013,7 @@ export class LevelMap {
     this.onWheel = (e) => {
       if (!this.isActive) return;
       const f = 0.0012;
-      const targetRot = this.globeGroup.rotation.x - e.deltaY * f;
+      const targetRot = this.globeGroup.rotation.x + e.deltaY * f;
       this.globeGroup.rotation.x = this.clampRotation(targetRot);
     };
 
@@ -2106,7 +2105,7 @@ export class LevelMap {
   }
 
   updateBackgroundGradient() {
-    const currentAngle = -this.globeGroup.rotation.x;
+    const currentAngle = Math.max(0, this.globeGroup.rotation.x);
     const taskIdx = Math.max(0, Math.floor(currentAngle / (this.stepLat || 0.09)));
     const activeTask = this.orderedTasks[Math.min(taskIdx, this.orderedTasks.length - 1)];
     const regionId = activeTask ? activeTask.regionId : 'welcome';
