@@ -27,7 +27,7 @@ export function useLevelMap() {
       openPanel(regionId, task.id);
     };
 
-    const levelMap = new LevelMap(gl, handleTaskClick);
+    const levelMap = new LevelMap(gl, handleTaskClick, null, gl.domElement);
     levelMapRef.current = levelMap;
 
     return () => {

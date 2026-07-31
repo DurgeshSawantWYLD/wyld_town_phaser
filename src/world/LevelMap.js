@@ -1,5 +1,6 @@
 // src/world/LevelMap.js
 import * as THREE from 'three';
+import gsap from 'gsap';
 import { REGIONS } from '../config.js';
 import { DECOR_BUILDERS, gltfLoader, gltfCache } from './Buildings.js';
 
@@ -1176,10 +1177,11 @@ function createDistantVillage(regColor) {
 
 export class LevelMap {
 
-  constructor(renderer, onTaskClick, onStateUpdate) {
+  constructor(renderer, onTaskClick, onStateUpdate, domElement = null) {
     this.renderer = renderer;
     this.onTaskClick = onTaskClick;
     this.onStateUpdate = onStateUpdate;
+    this.domElement = domElement || (renderer && renderer.domElement) || window;
 
     this.scene = new THREE.Scene();
     
@@ -1395,9 +1397,56 @@ export class LevelMap {
     while (this.parallaxGroup.children.length > 0) {
       this.parallaxGroup.remove(this.parallaxGroup.children[0]);
     }
-    this.mountainLayer = null;
-    this.treeLayer = null;
-    this.clouds = null;
+
+    const colorHex = this.regionParallaxColors[regionId] || '#2d5754';
+
+    // Far Layer: Mountains
+    const mtnTex = createBackgroundTexture('mountain', colorHex);
+    const mtnGeo = new THREE.PlaneGeometry(60, 30);
+    const mtnMat = new THREE.MeshBasicMaterial({
+      map: mtnTex,
+      transparent: true,
+      depthWrite: false
+    });
+    this.mountainLayer = new THREE.Mesh(mtnGeo, mtnMat);
+    this.mountainLayer.position.set(0, 1.5, -5);
+    this.parallaxGroup.add(this.mountainLayer);
+
+    // Mid Layer: Trees / Lollipops
+    const treeTex = createBackgroundTexture('trees', colorHex);
+    const treeGeo = new THREE.PlaneGeometry(55, 25);
+    const treeMat = new THREE.MeshBasicMaterial({
+      map: treeTex,
+      transparent: true,
+      depthWrite: false
+    });
+    this.treeLayer = new THREE.Mesh(treeGeo, treeMat);
+    this.treeLayer.position.set(0, 0.5, -2);
+    this.parallaxGroup.add(this.treeLayer);
+
+    // Near Floating Clouds
+    this.clouds = [];
+    const cloudTex = createBackgroundTexture('cloud', '#ffffff');
+    const cloudGeo = new THREE.PlaneGeometry(16, 8);
+    const cloudMat = new THREE.MeshBasicMaterial({
+      map: cloudTex,
+      transparent: true,
+      depthWrite: false,
+      opacity: 0.85
+    });
+
+    const cloudPositions = [
+      { x: -14, y: 5.5, z: 2 },
+      { x: 12, y: 6.5, z: 1 },
+      { x: -2, y: 8.0, z: 3 }
+    ];
+
+    cloudPositions.forEach(pos => {
+      const cloudMesh = new THREE.Mesh(cloudGeo, cloudMat);
+      cloudMesh.position.set(pos.x, pos.y, pos.z);
+      this.parallaxGroup.add(cloudMesh);
+      this.clouds.push(cloudMesh);
+    });
   }
 
   transitionParallax(regionId) {
@@ -2094,14 +2143,15 @@ export class LevelMap {
       this.onPointerUp(e);
     };
 
-    window.addEventListener('pointerdown', this.onPointerDown);
-    window.addEventListener('pointermove', this.onPointerMove);
-    window.addEventListener('pointerup', this.onPointerUp);
-    window.addEventListener('wheel', this.onWheel);
+    const target = this.domElement;
+    target.addEventListener('pointerdown', this.onPointerDown);
+    target.addEventListener('pointermove', this.onPointerMove);
+    target.addEventListener('pointerup', this.onPointerUp);
+    target.addEventListener('wheel', this.onWheel);
 
-    window.addEventListener('touchstart', this.onTouchStart, { passive: false });
-    window.addEventListener('touchmove', this.onTouchMove, { passive: false });
-    window.addEventListener('touchend', this.onTouchEnd);
+    target.addEventListener('touchstart', this.onTouchStart, { passive: false });
+    target.addEventListener('touchmove', this.onTouchMove, { passive: false });
+    target.addEventListener('touchend', this.onTouchEnd);
   }
 
   activate() {
@@ -2236,13 +2286,25 @@ export class LevelMap {
   }
 
   destroy() {
+    if (this.globeGroup) {
+      gsap.killTweensOf(this.globeGroup.rotation);
+      gsap.killTweensOf(this.globeGroup.scale);
+    }
+    if (this.globeMat) gsap.killTweensOf(this.globeMat.color);
+    if (this.scene && this.scene.background) gsap.killTweensOf(this.scene.background);
+
     window.removeEventListener('resize', this.onResize);
-    window.removeEventListener('pointerdown', this.onPointerDown);
-    window.removeEventListener('pointermove', this.onPointerMove);
-    window.removeEventListener('pointerup', this.onPointerUp);
-    window.removeEventListener('wheel', this.onWheel);
-    window.removeEventListener('touchstart', this.onTouchStart);
-    window.removeEventListener('touchmove', this.onTouchMove);
-    window.removeEventListener('touchend', this.onTouchEnd);
+
+    const target = this.domElement;
+    if (target) {
+      target.removeEventListener('pointerdown', this.onPointerDown);
+      target.removeEventListener('pointermove', this.onPointerMove);
+      target.removeEventListener('pointerup', this.onPointerUp);
+      target.removeEventListener('wheel', this.onWheel);
+      target.removeEventListener('touchstart', this.onTouchStart);
+      target.removeEventListener('touchmove', this.onTouchMove);
+      target.removeEventListener('touchend', this.onTouchEnd);
+    }
   }
+
 }

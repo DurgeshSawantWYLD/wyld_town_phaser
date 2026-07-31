@@ -200,16 +200,17 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 ---
 
 ### US-13 · Roads Layer
-**Status:** `[→]` In Progress  
+**Status:** `[x]` Done — 2026-07-31  
 **Goal:** Dynamic road network generated from chapter task positions.  
 **Acceptance Criteria:**
-- [ ] `src/features/city/components/RoadsLayer.jsx` created
-- [ ] `useJourneyRoads` hook (or inline logic) generates road set from task `col/row` positions
-- [ ] Calls `addDynamicRoadCell` from `Ground.js` for each road cell
-- [ ] Cleans up removed roads on re-render
-- [ ] Visual match to original road rendering
+- [x] `src/features/city/components/RoadsLayer.jsx` created
+- [x] `useJourneyRoads` hook (or inline logic) generates road set from task `col/row` positions
+- [x] Calls `addDynamicRoadCell` from `Ground.js` for each road cell
+- [x] Cleans up removed roads on re-render
+- [x] Visual match to original road rendering
 
-**Files touched:** `src/features/city/components/RoadsLayer.jsx`
+**Completion note:** Implemented RoadsLayer component rendering dynamic road network from task positions and static road sets. Verified clean disposal and build/lint.
+**Files touched:** `src/features/city/components/RoadsLayer.jsx`, `src/features/city/components/CityCanvas.jsx`
 
 ---
 
@@ -257,15 +258,15 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 - [x] Task click → `journeyStore.setActiveTask(task.id)` + `cityStore.openPanel`
 - [x] Visual match to original Level Map (globe, road, candy nodes, parallax)
 
-**Completion note:** Successfully wrapped LevelMap in an R3F Canvas and managed instance lifecycle in useLevelMap, connecting with Zustand stores. Lint and production build verified cleanly.
-**Files touched:** `src/features/level-map/hooks/useLevelMap.js`, `src/features/level-map/components/LevelMapCanvas.jsx`, `src/features/level-map/index.js`
+**Completion note:** Successfully wrapped LevelMap in an R3F Canvas and restored full original visuals (GSAP animations, 2D parallax mountain/tree/cloud layers, scoped canvas pointer events). Lint and production build verified with 0 errors.
+**Files touched:** `src/world/LevelMap.js`, `src/features/level-map/hooks/useLevelMap.js`, `src/features/level-map/components/LevelMapCanvas.jsx`, `src/features/level-map/index.js`
 
 ---
 
 ## Sprint 6 — Integration & Polish
 
 ### US-17 · End-to-End Integration
-**Status:** `[ ]` Backlog  
+**Status:** `[→]` In Progress  
 **Goal:** Wire all features together and verify the full user journey works.  
 **Acceptance Criteria:**
 - [ ] Title overlay → intro → city map renders with ground, roads, 10 buildings
@@ -301,9 +302,9 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint 1 — Foundation | US-01, US-02, US-03 | 3/3 |
 | Sprint 2 — Stores | US-04, US-05 | 2/2 |
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
-| Sprint 4 — City Canvas | US-09 → US-15 | 4/7 |
+| Sprint 4 — City Canvas | US-09 → US-15 | 7/7 |
 | Sprint 5 — Level Map | US-16 | 1/1 |
 | Sprint 6 — Polish | US-17, US-18 | 1/2 |
-| **Total** | **18 stories** | **14/18** |
+| **Total** | **18 stories** | **16/18** |
 
 
