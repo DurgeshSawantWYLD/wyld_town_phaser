@@ -2013,8 +2013,8 @@ export class LevelMap {
 
     this.onWheel = (e) => {
       if (!this.isActive) return;
-      const f = 0.0008;
-      const targetRot = this.globeGroup.rotation.x + e.deltaY * f;
+      const f = 0.0012;
+      const targetRot = this.globeGroup.rotation.x - e.deltaY * f;
       this.globeGroup.rotation.x = this.clampRotation(targetRot);
     };
 

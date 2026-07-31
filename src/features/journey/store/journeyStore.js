@@ -82,7 +82,15 @@ export const useJourneyStore = create()(
         }),
     })),
     {
-      name: 'wyld_town_v2',
+      name: 'wyld_town_v5',
+      version: 5,
+      migrate: (persistedState) => {
+        const initial = getInitialState();
+        if (!persistedState || !persistedState.tasks || persistedState.tasks.length < 40) {
+          return initial;
+        }
+        return persistedState;
+      },
     }
   )
 );
