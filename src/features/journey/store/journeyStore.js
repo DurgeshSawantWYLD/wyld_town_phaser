@@ -5,11 +5,20 @@ import { REGIONS } from '@/config';
 
 // Initial state creator
 const getInitialState = () => {
-  const welcomeTasks = REGIONS.welcome?.tasks || [];
+  const chapterKeys = ['welcome', 'cold', 'desert', 'fire'];
+  let allTasks = [];
+  chapterKeys.forEach((key) => {
+    if (REGIONS[key]?.tasks) {
+      allTasks = allTasks.concat(REGIONS[key].tasks);
+    }
+  });
+  if (allTasks.length > 0) {
+    allTasks[0].status = 'unlocked';
+  }
   return {
-    tasks: JSON.parse(JSON.stringify(welcomeTasks)), // Deep copy to prevent mutating the original config
-    activeTaskId: welcomeTasks[0]?.id || null,
-    chapterOrder: ['welcome'],
+    tasks: JSON.parse(JSON.stringify(allTasks)), // Deep copy to prevent mutating the original config
+    activeTaskId: allTasks[0]?.id || null,
+    chapterOrder: chapterKeys,
     completedTaskIds: [],
   };
 };

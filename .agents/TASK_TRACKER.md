@@ -292,7 +292,20 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 - [x] Follows mouse position (CSS `position: fixed` + `left/top` from pointer event)
 - [x] Hidden when `hoveredMeshId === null`
 
-**Files touched:** `src/shared/components/Tooltip.jsx`, `src/app/App.jsx`, `src/features/city/components/CityCanvas.jsx`, `src/features/city/components/RegionLabels.jsx`
+---
+
+### US-19 · Level Map Thematic Regions, Connected Chapters & Bounded Scroll
+**Status:** `[x]` Done — 2026-07-31  
+**Goal:** Expand level map to 4 thematic regions (40 total tasks), connect chapters with archways, remove parallax 2D background, and bound scrolling strictly between start and end levels.  
+**Acceptance Criteria:**
+- [x] 4 chapters defined in `config.js`: `welcome` (Green Meadow), `cold` (Icy Summit), `desert` (Desert Dunes), `fire` (Volcanic Caldera) with 10 tasks each (40 total)
+- [x] `journeyStore.js` aggregates all 40 tasks into a single sequential journey
+- [x] Background 2D parallax objects (mountains, trees, clouds) removed
+- [x] `clampRotation(angle)` bounds scrolling strictly between Level 1 (start) and Level 40 (end)
+- [x] Gateway archways mark chapter boundaries between nodes 10-11, 20-21, 30-31
+- [x] `npm run lint` and `npm run build` pass with 0 errors
+
+**Files touched:** `src/config.js`, `src/features/journey/store/journeyStore.js`, `src/world/LevelMap.js`
 
 ---
 
@@ -305,7 +318,7 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
 | Sprint 4 — City Canvas | US-09 → US-15 | 7/7 |
 | Sprint 5 — Level Map | US-16 | 1/1 |
-| Sprint 6 — Polish | US-17, US-18 | 2/2 |
-| **Total** | **18 stories** | **18/18** |
+| Sprint 6 — Polish | US-17, US-18, US-19 | 3/3 |
+| **Total** | **19 stories** | **19/19** |
 
 

@@ -1100,6 +1100,43 @@ function createProceduralIceCrystal() {
   return g;
 }
 
+function createProceduralVolcanoRock() {
+  const g = new THREE.Group();
+  const rockMat = new THREE.MeshToonMaterial({ color: 0x261210, roughness: 0.9 });
+  const rockGeo = new THREE.DodecahedronGeometry(0.45, 0);
+  rockGeo.scale(0.8, 1.2, 0.8);
+  const rock = new THREE.Mesh(rockGeo, rockMat);
+  rock.position.y = 0.3;
+  rock.castShadow = true;
+  g.add(rock);
+
+  const lavaMat = new THREE.MeshBasicMaterial({ color: 0xff3300 });
+  const lavaBand = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.04, 6, 12), lavaMat);
+  lavaBand.rotation.x = Math.PI / 3;
+  lavaBand.position.y = 0.3;
+  g.add(lavaBand);
+
+  g.scale.set(0.7, 0.7, 0.7);
+  return g;
+}
+
+function createProceduralTorch() {
+  const g = new THREE.Group();
+  const poleMat = new THREE.MeshToonMaterial({ color: 0x1f1f1f });
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 1.2, 8), poleMat);
+  pole.position.y = 0.6;
+  pole.castShadow = true;
+  g.add(pole);
+
+  const flameMat = new THREE.MeshBasicMaterial({ color: 0xff4500 });
+  const flame = new THREE.Mesh(new THREE.ConeGeometry(0.18, 0.45, 8), flameMat);
+  flame.position.y = 1.35;
+  g.add(flame);
+
+  g.scale.set(0.6, 0.6, 0.6);
+  return g;
+}
+
 function createDistantOasis(palmTemplate) {
   const g = new THREE.Group();
   const count = 3 + Math.floor(Math.random() * 3);
@@ -1205,13 +1242,7 @@ export class LevelMap {
 
     this.setupGlobe();
 
-    // Parallax background container
-    this.parallaxGroup = new THREE.Group();
-    this.parallaxGroup.position.set(0, 3, -15);
-    this.scene.add(this.parallaxGroup);
-    
     this.currentRegionId = '';
-
     this.animatedDecorations = [];
     this.taskMeshes = [];
     this.isActive = false;
@@ -1224,40 +1255,29 @@ export class LevelMap {
     // Background gradient colors corresponding to active region (deep forest/terrain matching gradients)
     this.regionColors = {
       welcome: ['#0d211f', '#122a27', '#1b3c38'],      // Deep forest teal-green
+      cold: ['#041019', '#092133', '#0e314a'],         // Deep icy blue
+      desert: ['#1f0e04', '#381a07', '#54270a'],       // Deep warm sunset amber
+      fire: ['#1c0404', '#380707', '#540b0b'],         // Deep volcanic crimson
       brands: ['#091724', '#0d2033', '#132e48'],       // Deep Navy
       creator: ['#14081a', '#1d0c26', '#2a1136'],      // Deep Purple
       campaigns: ['#091d0e', '#0d2a15', '#133e1f'],    // Deep Green
       analytics: ['#160810', '#210b18', '#301023'],    // Deep Plum
       marketplace: ['#1f1409', '#2d1d0c', '#3f2911'],  // Deep Brown
       community: ['#081b19', '#0d2825', '#133a36'],    // Deep Emerald Teal
-      snow: ['#091c24', '#0e2936', '#14384a'],         // Deep Icy Cyan-Blue
-      desert: ['#1c1007', '#2a180b', '#3b2210']        // Deep Warm Brownish Orange
     };
 
-    // Ground grass themed colors matching each chapter
+    // Ground themed colors matching each chapter
     this.regionGroundColors = {
-      welcome: 0x1f3b39,      // Deep Slate Teal (matching reference image)
+      welcome: 0x2e6f40,      // Vibrant Green Meadow
+      cold: 0xddeef5,         // Frosty/Snow White-Blue
+      desert: 0xe2a85e,       // Desert Sand Yellow
+      fire: 0x5c1409,         // Volcanic Magma Red
       brands: 0x142b42,       // Deep Navy Blue
       creator: 0x32133d,      // Deep Royal Purple
       campaigns: 0x15381d,    // Deep Forest Green
       analytics: 0x301222,    // Deep Magenta/Plum
       marketplace: 0x422d14,  // Deep Rich Chocolate Brown
       community: 0x113330,     // Deep Emerald Teal
-      snow: 0xddeef5,         // Frosty/Snow White-Blue
-      desert: 0xe2a85e        // Desert Sand Yellow
-    };
-
-    // Parallax themed flat color schemes for 2D background silhouettes (aerial perspective)
-    this.regionParallaxColors = {
-      welcome: '#2d5754',
-      brands: '#224261',
-      creator: '#4f245e',
-      campaigns: '#23522d',
-      analytics: '#4a2037',
-      marketplace: '#5c4121',
-      community: '#204d49',
-      snow: '#b0cddb',
-      desert: '#cca064'
     };
 
     this.palmTemplate = null;
@@ -1268,8 +1288,6 @@ export class LevelMap {
 
     this.setupRoadAndTasks();
     this.setupInput();
-
-    this.rebuildParallaxMeshes('welcome');
 
   }
 
@@ -1393,68 +1411,18 @@ export class LevelMap {
     this.globeGroup.add(this.globeMesh);
   }
 
+  clampRotation(angle) {
+    const taskCount = (this.orderedTasks && this.orderedTasks.length > 0) ? this.orderedTasks.length : 1;
+    const maxLat = (taskCount - 1) * (this.stepLat || 0.09);
+    return Math.min(0, Math.max(-maxLat, angle));
+  }
+
   rebuildParallaxMeshes(regionId) {
-    while (this.parallaxGroup.children.length > 0) {
-      this.parallaxGroup.remove(this.parallaxGroup.children[0]);
-    }
-
-    const colorHex = this.regionParallaxColors[regionId] || '#2d5754';
-
-    // Far Layer: Mountains
-    const mtnTex = createBackgroundTexture('mountain', colorHex);
-    const mtnGeo = new THREE.PlaneGeometry(60, 30);
-    const mtnMat = new THREE.MeshBasicMaterial({
-      map: mtnTex,
-      transparent: true,
-      depthWrite: false
-    });
-    this.mountainLayer = new THREE.Mesh(mtnGeo, mtnMat);
-    this.mountainLayer.position.set(0, 1.5, -5);
-    this.parallaxGroup.add(this.mountainLayer);
-
-    // Mid Layer: Trees / Lollipops
-    const treeTex = createBackgroundTexture('trees', colorHex);
-    const treeGeo = new THREE.PlaneGeometry(55, 25);
-    const treeMat = new THREE.MeshBasicMaterial({
-      map: treeTex,
-      transparent: true,
-      depthWrite: false
-    });
-    this.treeLayer = new THREE.Mesh(treeGeo, treeMat);
-    this.treeLayer.position.set(0, 0.5, -2);
-    this.parallaxGroup.add(this.treeLayer);
-
-    // Near Floating Clouds
-    this.clouds = [];
-    const cloudTex = createBackgroundTexture('cloud', '#ffffff');
-    const cloudGeo = new THREE.PlaneGeometry(16, 8);
-    const cloudMat = new THREE.MeshBasicMaterial({
-      map: cloudTex,
-      transparent: true,
-      depthWrite: false,
-      opacity: 0.85
-    });
-
-    const cloudPositions = [
-      { x: -14, y: 5.5, z: 2 },
-      { x: 12, y: 6.5, z: 1 },
-      { x: -2, y: 8.0, z: 3 }
-    ];
-
-    cloudPositions.forEach(pos => {
-      const cloudMesh = new THREE.Mesh(cloudGeo, cloudMat);
-      cloudMesh.position.set(pos.x, pos.y, pos.z);
-      this.parallaxGroup.add(cloudMesh);
-      this.clouds.push(cloudMesh);
-    });
+    // Parallax background disabled as per user request
   }
 
   transitionParallax(regionId) {
-    if (this.currentRegionId === regionId) return;
-    this.currentRegionId = regionId;
-
-    // Instantly rebuild textures without sliding off-screen to prevent frenetic movements
-    this.rebuildParallaxMeshes(regionId);
+    // Parallax background disabled as per user request
   }
 
   updateCameraForAspect() {
@@ -1555,17 +1523,18 @@ export class LevelMap {
     this.activeRegionId = null; // force transition
     this.transitionRegionColors(initialRegionId);
 
-    // Scroll the globe to the active task
+    // Scroll the globe to the active task (clamped to start/end bounds)
+    const targetAngle = this.clampRotation(-targetIndex * this.stepLat);
     gsap.killTweensOf(this.globeGroup.rotation);
     if (this.isActive) {
       gsap.to(this.globeGroup.rotation, {
-        x: -targetIndex * this.stepLat,
+        x: targetAngle,
         duration: 1.0,
         ease: 'power2.out',
         onComplete: () => this.updateBackgroundGradient()
       });
     } else {
-      this.globeGroup.rotation.x = -targetIndex * this.stepLat;
+      this.globeGroup.rotation.x = targetAngle;
     }
   }
 
@@ -1752,6 +1721,14 @@ export class LevelMap {
         nodeGroup.add(assetGroup);
       }
 
+      // If chapter transition node (every 10 tasks), place a gateway archway!
+      if (index > 0 && index % 10 === 0) {
+        const arch = createProceduralArchway(node.task.regionColor || 0x38bdf8);
+        arch.scale.set(1.1, 1.1, 1.1);
+        arch.position.set(-0.85, 0.05, 0);
+        nodeGroup.add(arch);
+      }
+
       // Initial scale 0 (or 1 if already active to handle asynchronous GLTF loads)
       const initScale = this.isActive ? 1 : 0;
       nodeGroup.scale.set(initScale, initScale, initScale);
@@ -1762,7 +1739,7 @@ export class LevelMap {
     });
 
     // Place decorative assets surrounding the road
-    const decorSteps = 60;
+    const decorSteps = 70;
     for (let i = 0; i <= decorSteps; i++) {
       const t = 0.02 + (i / decorSteps) * 0.96;
       const p = spline.getPointAt(t);
@@ -1786,8 +1763,8 @@ export class LevelMap {
         }
       });
 
-      // 25% chance to skip placing a decoration on this step to naturally space them out along the road length
-      if (Math.random() < 0.25) continue;
+      // 20% chance to skip placing a decoration on this step to naturally space them out along the road length
+      if (Math.random() < 0.20) continue;
 
       // Alternating sides
       const side = (i % 2 === 0) ? 1 : -1;
@@ -1802,146 +1779,52 @@ export class LevelMap {
         // Place small props or trees at a safe side distance
         dist = 4.8 + Math.random() * 1.5;
         const rand = Math.random();
-        if (rand < 0.3) {
-          // Palm tree
-          if (regionId === 'snow') {
-            decMesh = createProceduralPineTree();
-            scale = 0.9 + Math.random() * 0.3;
-          } else if (this.palmTemplate) {
-            decMesh = this.palmTemplate.clone();
-            scale = 0.45 + Math.random() * 0.15;
-          } else {
-            decMesh = createProceduralPalmTree();
-            scale = 0.9 + Math.random() * 0.3;
-          }
+        if (regionId === 'cold') {
+          if (rand < 0.5) decMesh = createProceduralPineTree();
+          else decMesh = createProceduralSnowman();
+          scale = 0.85 + Math.random() * 0.3;
           wiggle = true;
-        } else if (rand < 0.6) {
-          // Cactus
-          if (regionId === 'snow') {
-            decMesh = createProceduralSnowman();
-            scale = 0.85 + Math.random() * 0.25;
-          } else if (this.cactusTemplate) {
-            decMesh = this.cactusTemplate.clone();
-            scale = 0.45 + Math.random() * 0.15;
-          } else {
-            decMesh = createProceduralCactus();
-            scale = 0.8 + Math.random() * 0.2;
-          }
+        } else if (regionId === 'desert') {
+          if (rand < 0.5) decMesh = createProceduralCactus();
+          else decMesh = createProceduralCamel();
+          scale = 0.8 + Math.random() * 0.25;
           wiggle = true;
-        } else if (rand < 0.8) {
-          // Camel
-          if (regionId === 'snow') {
-            decMesh = createProceduralSnowman();
-            scale = 0.85 + Math.random() * 0.25;
-          } else if (this.camelTemplate) {
-            decMesh = this.camelTemplate.clone();
-            scale = 0.55 + Math.random() * 0.15;
-          } else {
-            decMesh = createProceduralCamel();
-            scale = 0.85 + Math.random() * 0.2;
-          }
-          wiggle = true;
+        } else if (regionId === 'fire') {
+          if (rand < 0.5) decMesh = createProceduralVolcanoRock();
+          else decMesh = createProceduralTorch();
+          scale = 0.85 + Math.random() * 0.25;
         } else {
-          // Lantern
-          if (this.lanternTemplate) {
-            decMesh = this.lanternTemplate.clone();
-            scale = 0.5 + Math.random() * 0.15;
-          } else {
-            decMesh = createProceduralLantern();
-            scale = 0.85 + Math.random() * 0.2;
-          }
+          // welcome
+          if (rand < 0.5) decMesh = createProceduralPalmTree();
+          else decMesh = createProceduralLantern();
+          scale = 0.85 + Math.random() * 0.25;
+          wiggle = true;
         }
       } else {
         // Place larger structures, palaces, archways, fountains, etc.
         const rand = Math.random();
-        if (rand < 0.22) {
-          // Palace or House
-          dist = 6.4 + Math.random() * 1.8;
-          if (regionId === 'snow') {
-            decMesh = createProceduralIgloo();
-            scale = 0.9 + Math.random() * 0.25;
-          } else {
-            const isPalace = Math.random() < 0.4;
-            if (isPalace) {
-              decMesh = createProceduralPalace(regColor);
-              scale = 0.8 + Math.random() * 0.2;
-            } else {
-              decMesh = createProceduralHouse(regColor);
-              scale = 0.9 + Math.random() * 0.2;
-            }
-          }
-        } else if (rand < 0.42) {
-          // Palm tree
-          dist = 4.8 + Math.random() * 1.4;
-          if (regionId === 'snow') {
-            decMesh = createProceduralPineTree();
-            scale = 0.9 + Math.random() * 0.3;
-          } else if (this.palmTemplate) {
-            decMesh = this.palmTemplate.clone();
-            scale = 0.45 + Math.random() * 0.15;
-          } else {
-            decMesh = createProceduralPalmTree();
-            scale = 0.9 + Math.random() * 0.3;
-          }
-          wiggle = true;
-        } else if (rand < 0.57) {
-          // Cactus
-          dist = 4.6 + Math.random() * 1.2;
-          if (regionId === 'snow') {
-            decMesh = createProceduralSnowman();
-            scale = 0.85 + Math.random() * 0.25;
-          } else if (this.cactusTemplate) {
-            decMesh = this.cactusTemplate.clone();
-            scale = 0.45 + Math.random() * 0.15;
-          } else {
-            decMesh = createProceduralCactus();
-            scale = 0.8 + Math.random() * 0.2;
-          }
-          wiggle = true;
-        } else if (rand < 0.7) {
-          // Camel
-          dist = 4.5 + Math.random() * 1.2;
-          if (regionId === 'snow') {
-            decMesh = createProceduralSnowman();
-            scale = 0.85 + Math.random() * 0.25;
-          } else if (this.camelTemplate) {
-            decMesh = this.camelTemplate.clone();
-            scale = 0.55 + Math.random() * 0.15;
-          } else {
-            decMesh = createProceduralCamel();
-            scale = 0.85 + Math.random() * 0.2;
-          }
-          wiggle = true;
-        } else if (rand < 0.8) {
-          // Fountain
-          dist = 5.2 + Math.random() * 1.2;
-          if (regionId === 'snow') {
-            decMesh = createProceduralIceCrystal();
-            scale = 0.9 + Math.random() * 0.15;
-          } else {
-            decMesh = createProceduralFountain();
-            scale = 0.9 + Math.random() * 0.15;
-          }
-        } else if (rand < 0.9) {
-          // Desert Tent
-          dist = 5.8 + Math.random() * 1.4;
-          if (regionId === 'snow') {
-            decMesh = createProceduralIgloo();
-            scale = 0.9 + Math.random() * 0.25;
-          } else {
-            decMesh = createProceduralTent();
-            scale = 0.9 + Math.random() * 0.25;
-          }
+        dist = 5.5 + Math.random() * 1.5;
+        if (regionId === 'cold') {
+          if (rand < 0.35) decMesh = createProceduralIgloo();
+          else if (rand < 0.7) decMesh = createProceduralIceCrystal();
+          else decMesh = createProceduralPineTree();
+          scale = 0.85 + Math.random() * 0.25;
+        } else if (regionId === 'desert') {
+          if (rand < 0.35) decMesh = createProceduralTent();
+          else if (rand < 0.7) decMesh = createProceduralCactus();
+          else decMesh = createProceduralCamel();
+          scale = 0.85 + Math.random() * 0.25;
+        } else if (regionId === 'fire') {
+          if (rand < 0.4) decMesh = createProceduralVolcanoRock();
+          else if (rand < 0.75) decMesh = createProceduralTorch();
+          else decMesh = createProceduralHouse(0xef4444);
+          scale = 0.85 + Math.random() * 0.25;
         } else {
-          // Lantern
-          dist = 4.6 + Math.random() * 0.8;
-          if (this.lanternTemplate) {
-            decMesh = this.lanternTemplate.clone();
-            scale = 0.5 + Math.random() * 0.15;
-          } else {
-            decMesh = createProceduralLantern();
-            scale = 0.85 + Math.random() * 0.2;
-          }
+          // welcome
+          if (rand < 0.4) decMesh = createProceduralFountain();
+          else if (rand < 0.7) decMesh = createProceduralPalmTree();
+          else decMesh = createProceduralHouse(regColor);
+          scale = 0.85 + Math.random() * 0.25;
         }
       }
 
@@ -2106,7 +1989,8 @@ export class LevelMap {
           this.hasDragged = true;
         }
         const f = 0.003;
-        this.globeGroup.rotation.x += dy * f;
+        const targetRot = this.globeGroup.rotation.x + dy * f;
+        this.globeGroup.rotation.x = this.clampRotation(targetRot);
         this.dragStart = { x: e.clientX, y: e.clientY };
       }
     };
@@ -2130,7 +2014,8 @@ export class LevelMap {
     this.onWheel = (e) => {
       if (!this.isActive) return;
       const f = 0.0008;
-      this.globeGroup.rotation.x += e.deltaY * f;
+      const targetRot = this.globeGroup.rotation.x + e.deltaY * f;
+      this.globeGroup.rotation.x = this.clampRotation(targetRot);
     };
 
     this.onTouchStart = (e) => {

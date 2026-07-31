@@ -145,6 +145,99 @@ export const REGIONS = {
       }
     ]
   },
+  cold: {
+    id: 'cold', title: 'Cold Summit', sub: 'Chapter 2: Frozen Peaks', emoji: '❄️',
+    col: 6, row: 17, color: 0x38bdf8,
+    unlocks: 'desert', cta: 'Cross into Desert Dunes',
+    desc: 'Navigate icy glaciers, frozen fjords, and snowy peaks in the arctic summit.',
+    theme: {
+      skyColors: ['#041019', '#092133', '#0e314a'],
+      groundColor: 0xddeef5,
+      parallaxColor: '#b0cddb',
+      landColor: 0xa5f3fc,
+      roadColor: 0xc4b5fd,
+      accentColor: 0x38bdf8,
+      assets: {
+        decorBuilding: 'civic_landmark',
+        sideBuildings: ['office_tower', 'shop_corner'],
+        decorProps: ['snowman', 'pine_tree']
+      }
+    },
+    tasks: [
+      { id: 'cold_1', title: 'Glacier Crossing', desc: 'Step across the crevasse over icy bridges.', status: 'locked', col: 6, row: 17, asset: { type: 'procedural', shape: 'civic_landmark', height: 0.5, primaryColor: 0x38bdf8 }, rewards: [{ type: 'coin', value: 1500, label: '1500 WYLD Coins', icon: '🪙' }] },
+      { id: 'cold_2', title: 'Build Igloo Outpost', desc: 'Assemble a shelter against sub-zero mountain winds.', status: 'locked', col: 7, row: 17, asset: { type: 'procedural', shape: 'shop_corner', height: 0.3, primaryColor: 0x0284c7 }, rewards: [{ type: 'coin', value: 1600, label: '1600 WYLD Coins', icon: '🪙' }] },
+      { id: 'cold_3', title: 'Frost Crystal Mining', desc: 'Extract glowing ice crystals embedded in the glacier.', status: 'locked', col: 8, row: 17, asset: { type: 'procedural', shape: 'office_low', height: 0.4, primaryColor: 0xbae6fd }, rewards: [{ type: 'coin', value: 1700, label: '1700 WYLD Coins', icon: '🪙' }] },
+      { id: 'cold_4', title: 'Snowmobile Dash', desc: 'Race across the frozen lakebed to reach the weather station.', status: 'locked', col: 9, row: 17, asset: { type: 'procedural', shape: 'office_tower', height: 0.7, primaryColor: 0x38bdf8 }, rewards: [{ type: 'coin', value: 1800, label: '1800 WYLD Coins', icon: '🪙' }] },
+      { id: 'cold_5', title: 'Aurora Beacon', desc: 'Calibrate the magnetic beacon to project the northern lights.', status: 'locked', col: 10, row: 17, asset: { type: 'procedural', shape: 'civic_landmark', height: 0.6, primaryColor: 0x818cf8 }, rewards: [{ type: 'coin', value: 1900, label: '1900 WYLD Coins', icon: '🪙' }] },
+      { id: 'cold_6', title: 'Yeti Cavern', desc: 'Explore the shimmering ice cave without disturbing the yeti.', status: 'locked', col: 11, row: 17, asset: { type: 'procedural', shape: 'shop_corner', height: 0.35, primaryColor: 0x0284c7 }, rewards: [{ type: 'coin', value: 2000, label: '2000 WYLD Coins', icon: '🪙' }] },
+      { id: 'cold_7', title: 'Frozen Waterfall Summit', desc: 'Scale the sheer ice wall using spiked crampons.', status: 'locked', col: 12, row: 17, asset: { type: 'procedural', shape: 'industrial_factory', height: 0.5, primaryColor: 0xbae6fd }, rewards: [{ type: 'coin', value: 2100, label: '2100 WYLD Coins', icon: '🪙' }] },
+      { id: 'cold_8', title: 'Blizzard Rescue', desc: 'Guiding lost explorers safely through the whiteout.', status: 'locked', col: 13, row: 17, asset: { type: 'procedural', shape: 'office_tower', height: 0.65, primaryColor: 0x38bdf8 }, rewards: [{ type: 'coin', value: 2200, label: '2200 WYLD Coins', icon: '🪙' }] },
+      { id: 'cold_9', title: 'Ice Citadel Keep', desc: 'Unlock the ancient gates carved into the solid ice glacier.', status: 'locked', col: 14, row: 17, asset: { type: 'procedural', shape: 'civic_landmark', height: 0.75, primaryColor: 0x818cf8 }, rewards: [{ type: 'coin', value: 2300, label: '2300 WYLD Coins', icon: '🪙' }] },
+      { id: 'cold_10', title: 'Summit Flag Victory', desc: 'Plant the WYLD Creator banner on the highest snowy peak.', status: 'locked', col: 15, row: 17, asset: { type: 'procedural', shape: 'office_tower', height: 0.8, primaryColor: 0x38bdf8 }, rewards: [{ type: 'coin', value: 2500, label: '2500 WYLD Coins', icon: '🪙' }] }
+    ]
+  },
+  desert: {
+    id: 'desert', title: 'Desert Dunes', sub: 'Chapter 3: Sunbaked Sands', emoji: '🏜️',
+    col: 16, row: 17, color: 0xf59e0b,
+    unlocks: 'fire', cta: 'Descend to Volcanic Caldera',
+    desc: 'Brave golden dunes, ancient pyramids, and scorching desert oases.',
+    theme: {
+      skyColors: ['#1f0e04', '#381a07', '#54270a'],
+      groundColor: 0xe2a85e,
+      parallaxColor: '#cca064',
+      landColor: 0xfcd34d,
+      roadColor: 0xfde047,
+      accentColor: 0xf59e0b,
+      assets: {
+        decorBuilding: 'civic_landmark',
+        sideBuildings: ['shop_corner'],
+        decorProps: ['cactus', 'camel', 'tent']
+      }
+    },
+    tasks: [
+      { id: 'desert_1', title: 'Dune Caravan', desc: 'Trek across undulating sand dunes guided by camels.', status: 'locked', col: 16, row: 17, asset: { type: 'procedural', shape: 'civic_landmark', height: 0.5, primaryColor: 0xf59e0b }, rewards: [{ type: 'coin', value: 2600, label: '2600 WYLD Coins', icon: '🪙' }] },
+      { id: 'desert_2', title: 'Oasis Market', desc: 'Trade spices and silk under palm trees at the desert oasis.', status: 'locked', col: 17, row: 17, asset: { type: 'procedural', shape: 'shop_corner', height: 0.3, primaryColor: 0xd97706 }, rewards: [{ type: 'coin', value: 2700, label: '2700 WYLD Coins', icon: '🪙' }] },
+      { id: 'desert_3', title: 'Pyramid Threshold', desc: 'Uncover ancient hieroglyph stone tablets in the sands.', status: 'locked', col: 18, row: 17, asset: { type: 'procedural', shape: 'office_low', height: 0.4, primaryColor: 0xfcd34d }, rewards: [{ type: 'coin', value: 2800, label: '2800 WYLD Coins', icon: '🪙' }] },
+      { id: 'desert_4', title: 'Sandstorm Navigation', desc: 'Use celestial compass navigation during a golden dust storm.', status: 'locked', col: 19, row: 17, asset: { type: 'procedural', shape: 'office_tower', height: 0.7, primaryColor: 0xf59e0b }, rewards: [{ type: 'coin', value: 2900, label: '2900 WYLD Coins', icon: '🪙' }] },
+      { id: 'desert_5', title: 'Sun Dial Alignment', desc: 'Align the ancient golden mirror array to harvest solar energy.', status: 'locked', col: 20, row: 17, asset: { type: 'procedural', shape: 'civic_landmark', height: 0.6, primaryColor: 0xfbbf24 }, rewards: [{ type: 'coin', value: 3000, label: '3000 WYLD Coins', icon: '🪙' }] },
+      { id: 'desert_6', title: 'Mirage Canyon', desc: 'Navigate shimmering illusions through sandstone slot canyons.', status: 'locked', col: 21, row: 17, asset: { type: 'procedural', shape: 'shop_corner', height: 0.35, primaryColor: 0xd97706 }, rewards: [{ type: 'coin', value: 3100, label: '3100 WYLD Coins', icon: '🪙' }] },
+      { id: 'desert_7', title: 'Nomad Campfire', desc: 'Share stories and music with desert wanderers at nightfall.', status: 'locked', col: 22, row: 17, asset: { type: 'procedural', shape: 'industrial_factory', height: 0.5, primaryColor: 0xfcd34d }, rewards: [{ type: 'coin', value: 3200, label: '3200 WYLD Coins', icon: '🪙' }] },
+      { id: 'desert_8', title: 'Scorpion Ridge Pass', desc: 'Safely bypass rocky escarpments guarded by desert fauna.', status: 'locked', col: 23, row: 17, asset: { type: 'procedural', shape: 'office_tower', height: 0.65, primaryColor: 0xf59e0b }, rewards: [{ type: 'coin', value: 3300, label: '3300 WYLD Coins', icon: '🪙' }] },
+      { id: 'desert_9', title: 'Golden Sphinx Vault', desc: 'Solve the riddle of the golden sphinx gatehouse.', status: 'locked', col: 24, row: 17, asset: { type: 'procedural', shape: 'civic_landmark', height: 0.75, primaryColor: 0xfbbf24 }, rewards: [{ type: 'coin', value: 3400, label: '3400 WYLD Coins', icon: '🪙' }] },
+      { id: 'desert_10', title: 'Sultan Palace Gate', desc: 'Reach the majestic golden palace at the edge of the desert.', status: 'locked', col: 25, row: 17, asset: { type: 'procedural', shape: 'office_tower', height: 0.8, primaryColor: 0xf59e0b }, rewards: [{ type: 'coin', value: 3500, label: '3500 WYLD Coins', icon: '🪙' }] }
+    ]
+  },
+  fire: {
+    id: 'fire', title: 'Fire Caldera', sub: 'Chapter 4: Volcanic Realm', emoji: '🌋',
+    col: 26, row: 17, color: 0xef4444,
+    unlocks: null, cta: 'Master of WYLD Town',
+    desc: 'Face glowing lava streams, obsidian crags, and fiery volcanic power.',
+    theme: {
+      skyColors: ['#1c0404', '#380707', '#540b0b'],
+      groundColor: 0x5c1409,
+      parallaxColor: '#4a1515',
+      landColor: 0xf87171,
+      roadColor: 0xfca5a5,
+      accentColor: 0xef4444,
+      assets: {
+        decorBuilding: 'civic_landmark',
+        sideBuildings: ['industrial_factory'],
+        decorProps: ['lava_pillar', 'torch']
+      }
+    },
+    tasks: [
+      { id: 'fire_1', title: 'Obsidian Ridge', desc: 'Traverse sharp black obsidian rocks over glowing magma.', status: 'locked', col: 26, row: 17, asset: { type: 'procedural', shape: 'civic_landmark', height: 0.5, primaryColor: 0xef4444 }, rewards: [{ type: 'coin', value: 3600, label: '3600 WYLD Coins', icon: '🪙' }] },
+      { id: 'fire_2', title: 'Magma Forge', desc: 'Forge fireproof creator armor in molten subterranean heat.', status: 'locked', col: 27, row: 17, asset: { type: 'procedural', shape: 'industrial_factory', height: 0.4, primaryColor: 0xb91c1c }, rewards: [{ type: 'coin', value: 3700, label: '3700 WYLD Coins', icon: '🪙' }] },
+      { id: 'fire_3', title: 'Eruption Warning System', desc: 'Activate geothermal sensors around the smoking crater.', status: 'locked', col: 28, row: 17, asset: { type: 'procedural', shape: 'office_low', height: 0.4, primaryColor: 0xfca5a5 }, rewards: [{ type: 'coin', value: 3800, label: '3800 WYLD Coins', icon: '🪙' }] },
+      { id: 'fire_4', title: 'Basalt Bridge Crossing', desc: 'Cross a swinging bridge suspended over active lava falls.', status: 'locked', col: 29, row: 17, asset: { type: 'procedural', shape: 'office_tower', height: 0.7, primaryColor: 0xef4444 }, rewards: [{ type: 'coin', value: 3900, label: '3900 WYLD Coins', icon: '🪙' }] },
+      { id: 'fire_5', title: 'Phoenix Flame Pillar', desc: 'Kindle the legendary flame pillar on top of the volcanic crest.', status: 'locked', col: 30, row: 17, asset: { type: 'procedural', shape: 'civic_landmark', height: 0.6, primaryColor: 0xf87171 }, rewards: [{ type: 'coin', value: 4000, label: '4000 WYLD Coins', icon: '🪙' }] },
+      { id: 'fire_6', title: 'Subterranean Tunnels', desc: 'Navigate geothermal steam tunnels deep inside the mountain.', status: 'locked', col: 31, row: 17, asset: { type: 'procedural', shape: 'shop_corner', height: 0.35, primaryColor: 0xb91c1c }, rewards: [{ type: 'coin', value: 4200, label: '4200 WYLD Coins', icon: '🪙' }] },
+      { id: 'fire_7', title: 'Lava Surfing Rapids', desc: 'Rider heat shields across molten basalt channels.', status: 'locked', col: 32, row: 17, asset: { type: 'procedural', shape: 'industrial_factory', height: 0.5, primaryColor: 0xfca5a5 }, rewards: [{ type: 'coin', value: 4400, label: '4400 WYLD Coins', icon: '🪙' }] },
+      { id: 'fire_8', title: 'Dragon Roost Summit', desc: 'Ascend the highest volcanic pinnacle overlooking the realm.', status: 'locked', col: 33, row: 17, asset: { type: 'procedural', shape: 'office_tower', height: 0.65, primaryColor: 0xef4444 }, rewards: [{ type: 'coin', value: 4600, label: '4600 WYLD Coins', icon: '🪙' }] },
+      { id: 'fire_9', title: 'Caldera Core Engine', desc: 'Harness raw volcanic heat to power the WYLD network.', status: 'locked', col: 34, row: 17, asset: { type: 'procedural', shape: 'civic_landmark', height: 0.75, primaryColor: 0xf87171 }, rewards: [{ type: 'coin', value: 4800, label: '4800 WYLD Coins', icon: '🪙' }] },
+      { id: 'fire_10', title: 'Ultimate WYLD Crown', desc: 'Claim the Grand Master crown at the apex of the Fire Caldera.', status: 'locked', col: 35, row: 17, asset: { type: 'procedural', shape: 'office_tower', height: 0.85, primaryColor: 0xef4444 }, rewards: [{ type: 'coin', value: 5000, label: '5000 WYLD Coins', icon: '🪙' }] }
+    ]
+  },
   brands: {
     id: 'brands', title: 'Brands Hub', sub: 'Social Commerce Centre', emoji: '🏢',
     col: 6, row: 5, color: 0xff00ff,
@@ -333,70 +426,6 @@ export const REGIONS = {
         rewards: [
           { type: 'coin', value: 1000, label: '1000 WYLD Coins', icon: '🪙' },
           { type: 'trophy', value: 'WYLD Champion', label: 'WYLD Champion Trophy', icon: '🏆' }
-        ]
-      }
-    ]
-  },
-  snow: {
-    id: 'snow', title: 'Snow Peaks', sub: 'Icy Wilderness', emoji: '❄️',
-    col: 6, row: 17, color: 0xb0bec5,
-    unlocks: 'desert', cta: 'Unlock Desert Dunes',
-    desc: 'Brave the freezing trails and establish snowy creator chalets on the peak.',
-    tasks: [
-      {
-        id: 'snow_1',
-        title: 'Clear Mountain Path',
-        desc: 'Shovel snow off the mountain trails to open the path to the summit.',
-        status: 'locked',
-        col: 6, row: 17,
-        asset: { type: 'procedural', shape: 'office_tower', height: 0.6, primaryColor: 0xb0bec5 },
-        rewards: [
-          { type: 'coin', value: 1100, label: '1100 WYLD Coins', icon: '🪙' },
-          { type: 'xp', value: 450, label: '450 Creator XP', icon: '⚡' }
-        ]
-      },
-      {
-        id: 'snow_2',
-        title: 'Build Snow Chalet',
-        desc: 'Construct a warm cozy igloo and cabin for frozen content sessions.',
-        status: 'locked',
-        col: 5, row: 16,
-        asset: { type: 'procedural', shape: 'residential_house', height: 0.45, primaryColor: 0xb0bec5 },
-        rewards: [
-          { type: 'coin', value: 1200, label: '1200 WYLD Coins', icon: '🪙' },
-          { type: 'item', value: 'Cozy Beanie', label: 'Cozy Beanie NFT', icon: '🤠' }
-        ]
-      }
-    ]
-  },
-  desert: {
-    id: 'desert', title: 'Desert Dunes', sub: 'Golden Oasis', emoji: '🏜️',
-    col: 16, row: 17, color: 0xffb74d,
-    unlocks: null, cta: '🏆 Complete!',
-    desc: 'Explore the sweeping sand dunes and harness solar power in the sunny oasis.',
-    tasks: [
-      {
-        id: 'desert_1',
-        title: 'Locate Hidden Oasis',
-        desc: 'Find the secret water spring hidden deep inside the hot dunes.',
-        status: 'locked',
-        col: 16, row: 17,
-        asset: { type: 'procedural', shape: 'civic_landmark', height: 0.5, primaryColor: 0xffb74d },
-        rewards: [
-          { type: 'coin', value: 1300, label: '1300 WYLD Coins', icon: '🪙' },
-          { type: 'xp', value: 500, label: '500 Creator XP', icon: '⚡' }
-        ]
-      },
-      {
-        id: 'desert_2',
-        title: 'Deploy Solar Grid',
-        desc: 'Install solar arrays around the oasis to power local creator hubs.',
-        status: 'locked',
-        col: 15, row: 16,
-        asset: { type: 'procedural', shape: 'industrial_factory', height: 0.4, primaryColor: 0xffb74d },
-        rewards: [
-          { type: 'coin', value: 1400, label: '1400 WYLD Coins', icon: '🪙' },
-          { type: 'item', value: 'Golden Sunglasses', label: 'Sun Shield Glasses', icon: '🕶️' }
         ]
       }
     ]
