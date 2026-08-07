@@ -49,7 +49,8 @@ const TaskBuilding = React.memo(({ task }) => {
   // Smooth hover scale animation using useFrame
   useFrame((state, delta) => {
     if (!groupRef.current) return;
-    const targetScale = hovered ? 1.15 : 1.0;
+    const baseScale = 2.0;
+    const targetScale = hovered ? baseScale * 1.15 : baseScale;
     // Frame-rate independent lerp
     const speed = 1 - Math.pow(0.001, delta); // Lerp factor
     groupRef.current.scale.x = THREE.MathUtils.lerp(groupRef.current.scale.x, targetScale, speed);

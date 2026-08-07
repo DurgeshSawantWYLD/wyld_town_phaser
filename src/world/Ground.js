@@ -96,7 +96,7 @@ export function rebuildCityGround(scene, activeRegions, cols, rows) {
 
   // First pass: compute closest region for each cell in the expanded grid
   const cellRegionMap = new Map();
-  const margin = 4; // grid padding margin
+  const margin = 6; // grid padding margin
   for (let colIndex = -margin; colIndex < c + margin; colIndex++) {
     for (let rowIndex = -margin; rowIndex < r + margin; rowIndex++) {
       const key = `${colIndex},${rowIndex}`;
@@ -266,15 +266,17 @@ export function addDynamicRoadCell(scene, c, r, cols, rows) {
     }
   } else {
     // ─── RENDER STANDARD ROAD ───
-    const curbGeo = new THREE.BoxGeometry(1.0, 0.035, 1.0);
+    // Base sidewalk/curb slab covering full tile
+    const curbGeo = new THREE.BoxGeometry(1.0, 0.03, 1.0);
     const curb = new THREE.Mesh(curbGeo, sidewalkMat);
-    curb.position.set(cx, 0.018, cz);
+    curb.position.set(cx, 0.015, cz);
     curb.receiveShadow = true;
     roadGroup.add(curb);
 
-    const rGeo = new THREE.BoxGeometry(0.85, 0.04, 0.85);
+    // Continuous asphalt surface
+    const rGeo = new THREE.BoxGeometry(1.0, 0.035, 1.0);
     const road = new THREE.Mesh(rGeo, roadMat);
-    road.position.set(cx, 0.02, cz);
+    road.position.set(cx, 0.018, cz);
     road.receiveShadow = true;
     roadGroup.add(road);
   }

@@ -5,6 +5,7 @@ import SceneLights from './SceneLights';
 import GroundLayer from './GroundLayer';
 import RoadsLayer from './RoadsLayer';
 import BuildingsLayer from './BuildingsLayer';
+import PropsLayer from './PropsLayer';
 import useCameraController from '../hooks/useCameraController';
 import usePointerInteraction from '../hooks/usePointerInteraction';
 import IntroStarfield from './IntroStarfield';
@@ -78,6 +79,9 @@ export default function CityCanvas() {
 
         {/* Dynamic Road Network */}
         <RoadsLayer />
+
+        {/* Decorative Props & Vegetation */}
+        <PropsLayer />
 
         {/* Task buildings */}
         <BuildingsLayer />

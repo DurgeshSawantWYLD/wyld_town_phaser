@@ -305,7 +305,16 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 - [x] Gateway archways mark chapter boundaries between nodes 10-11, 20-21, 30-31
 - [x] `npm run lint` and `npm run build` pass with 0 errors
 
-**Files touched:** `src/config.js`, `src/features/journey/store/journeyStore.js`, `src/world/LevelMap.js`
+### US-20 · Level Map Road Wave Customization
+**Status:** `[x]` Done — 2026-08-07  
+**Goal:** Custom road geometry, width, angle, and level node placement alignment on LevelMap canvas.  
+**Acceptance Criteria:**
+- [x] Level map camera angle set to 25% sky / 75% ground coverage
+- [x] Road ribbon width expanded (roadWidth = 5.4)
+- [x] Level nodes aligned precisely with road wave center line curve
+- [x] `npm run lint` and `npm run build` pass with 0 warnings/errors
+
+**Files touched:** `src/world/LevelMap.js`, `src/features/city/components/PropsLayer.jsx`
 
 ---
 
@@ -318,7 +327,7 @@ Legend: `[ ]` Backlog · `[→]` Ready / In Progress · `[x]` Done · `[-]` Defe
 | Sprint 3 — Shell & UI | US-06, US-07, US-08 | 3/3 |
 | Sprint 4 — City Canvas | US-09 → US-15 | 7/7 |
 | Sprint 5 — Level Map | US-16 | 1/1 |
-| Sprint 6 — Polish | US-17, US-18, US-19 | 3/3 |
-| **Total** | **19 stories** | **19/19** |
+| Sprint 6 — Polish | US-17, US-18, US-19, US-20 | 4/4 |
+| **Total** | **20 stories** | **20/20** |
 
 

@@ -1430,23 +1430,20 @@ export class LevelMap {
     this.camera.aspect = aspect;
 
     const defaultFov = 45;
-    const baseCameraY = 22.0;
-    const baseCameraZ = 36.0;
+    // Adjusted camera height/angle to set sky proportion to ~25%
+    const baseCameraY = 24.0;
+    const baseCameraZ = 31.0;
     const lookAtY = 3.5;
 
     if (aspect < 1.0) {
-      // Portrait view: zoom in by moving camera closer
-      const factor = Math.max(0.55, aspect); // range [0.55, 1.0]
-      const targetY = lookAtY;
-      const targetZ = 0.0;
-      
-      const diffY = baseCameraY - targetY;
-      const diffZ = baseCameraZ - targetZ;
+      const factor = Math.max(0.55, aspect);
+      const targetY = baseCameraY * (0.85 + (1 - factor) * 0.15);
+      const targetZ = baseCameraZ * (0.85 + (1 - factor) * 0.15);
 
-      this.camera.position.set(0, targetY + diffY * factor, targetZ + diffZ * factor);
-      this.camera.fov = defaultFov * (0.9 + (1 - factor) * 0.1); 
+      this.camera.position.set(0, targetY, targetZ);
+      this.camera.fov = defaultFov * (0.88 + (1 - factor) * 0.12); 
     } else {
-      // Landscape view: use default camera settings
+      // Landscape view
       this.camera.position.set(0, baseCameraY, baseCameraZ);
       this.camera.fov = defaultFov;
     }
@@ -1557,10 +1554,20 @@ export class LevelMap {
     // Spaced out by dynamic stepLat to prevent overlaps
     const stepLat = this.stepLat || 0.09;
 
+    // Shared wave formula function so task nodes and road border curves match precisely
+    // Convert lat/position step into the same wave parameter space
+    const totalRoadSpan = (taskCount - 1) * stepLat;
+    const getWaveOffset = (lat) => {
+      // Map latitude to roadPoints sampling parameter (scaled to ~240 points space)
+      const t = (lat / (totalRoadSpan || 1)) * 240;
+      return Math.sin(t * 0.15) * 0.014 + Math.cos(t * 0.07) * 0.006;
+    };
+
     this.taskPathPoints = [];
     this.orderedTasks.forEach((task, index) => {
       const lat = index * stepLat;
-      const lon = 0.08 * Math.sin(index * 0.25); // Gentle, subtle road curve
+      // Task nodes sit along the center of the road wave
+      const lon = getWaveOffset(lat);
       const pos = this.getSphereCoords(lat, lon, this.globeRadius + 0.025);
       this.taskPathPoints.push({ pos, lat, lon, task });
     });
@@ -1574,7 +1581,7 @@ export class LevelMap {
     const vertices = [];
     const uvs = [];
     const indices = [];
-    const roadWidth = 3.6; // wider aesthetic road
+    const roadWidth = 5.4; // extra wide aesthetic road ribbon
 
     for (let i = 0; i < roadPoints.length; i++) {
       const p = roadPoints[i];
@@ -1588,8 +1595,10 @@ export class LevelMap {
       }
       const side = new THREE.Vector3().crossVectors(normal, tangent).normalize();
 
-      const leftPt = p.clone().add(side.clone().multiplyScalar(-roadWidth / 2));
-      const rightPt = p.clone().add(side.clone().multiplyScalar(roadWidth / 2));
+      // Road borders offset symmetrically around the spline path
+      const borderOffset = (roadWidth / 2);
+      const leftPt = p.clone().add(side.clone().multiplyScalar(-borderOffset));
+      const rightPt = p.clone().add(side.clone().multiplyScalar(borderOffset));
 
       vertices.push(leftPt.x, leftPt.y, leftPt.z);
       vertices.push(rightPt.x, rightPt.y, rightPt.z);
@@ -1653,10 +1662,20 @@ export class LevelMap {
         nodeGroup.userData.pulseRing = ringMesh;
       }
 
-      // Add task 3D asset next to the candy button
+      // Add task 3D asset scattered around the candy button
       if (node.task.asset) {
         const assetGroup = new THREE.Group();
         const assetConfig = node.task.asset;
+
+        // Calculate scattered building position & rotation across the map
+        const bSide = (index % 2 === 0 ? 1 : -1);
+        const bDist = 1.2 + ((index * 13) % 5) * 0.45; // Distances between 1.2 and 3.0 units off the road (keeps buildings on terrain)
+        const bTangentOffset = (((index * 13) % 5) - 2) * 0.4; // Tangent offset along the road
+
+        const bPosX = bSide * bDist;
+        const bPosY = 0.05;
+        const bPosZ = bTangentOffset;
+        const bRotY = (Math.PI / 4) + (index * 0.618 * Math.PI); // Organic staggered rotation
 
         if (assetConfig.type === 'external_gltf') {
           const url = assetConfig.url;
@@ -1667,7 +1686,7 @@ export class LevelMap {
             new THREE.BoxGeometry(0.2, 0.2, 0.2),
             new THREE.MeshToonMaterial({ color: 0x8fa5b8 })
           );
-          placeholder.position.set(0.9, 0.1, 0);
+          placeholder.position.set(bPosX, bPosY + 0.05, bPosZ);
           assetGroup.add(placeholder);
 
           const loadModel = (modelUrl) => {
@@ -1675,9 +1694,16 @@ export class LevelMap {
               assetGroup.remove(placeholder);
               const model = gltfCache[modelUrl].clone();
               model.scale.set(scale, scale, scale);
-              model.rotation.y = rotation;
-              model.position.set(0.9, 0.05, 0);
-              model.traverse(child => { if (child.isMesh) { child.castShadow = true; child.receiveShadow = true; } });
+              model.rotation.y = rotation + bRotY;
+              model.position.set(bPosX, bPosY, bPosZ);
+              model.traverse(child => {
+                if (child.isMesh) {
+                  child.castShadow = true;
+                  child.receiveShadow = true;
+                  child.userData = { task: node.task, index };
+                  this.taskMeshes.push(child);
+                }
+              });
               assetGroup.add(model);
             } else {
               gltfLoader.load(modelUrl, (gltf) => {
@@ -1685,9 +1711,16 @@ export class LevelMap {
                 assetGroup.remove(placeholder);
                 const model = gltf.scene.clone();
                 model.scale.set(scale, scale, scale);
-                model.rotation.y = rotation;
-                model.position.set(0.9, 0.05, 0);
-                model.traverse(child => { if (child.isMesh) { child.castShadow = true; child.receiveShadow = true; } });
+                model.rotation.y = rotation + bRotY;
+                model.position.set(bPosX, bPosY, bPosZ);
+                model.traverse(child => {
+                  if (child.isMesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                    child.userData = { task: node.task, index };
+                    this.taskMeshes.push(child);
+                  }
+                });
                 assetGroup.add(model);
               }, undefined, (err) => {
                 console.error("Error loading GLTF in level map:", err);
@@ -1701,7 +1734,7 @@ export class LevelMap {
           const builder = DECOR_BUILDERS[shape] || DECOR_BUILDERS.office_tower;
           builder(assetGroup);
 
-          // Apply colors
+          // Apply colors and click metadata
           if (assetConfig.primaryColor) {
             const hexColor = assetConfig.primaryColor;
             assetGroup.traverse(child => {
@@ -1712,9 +1745,16 @@ export class LevelMap {
             });
           }
 
+          assetGroup.traverse(child => {
+            if (child.isMesh) {
+              child.userData = { task: node.task, index };
+              this.taskMeshes.push(child);
+            }
+          });
+
           assetGroup.scale.set(0.6, 0.6, 0.6);
-          assetGroup.position.set(0.9, 0.05, 0);
-          assetGroup.rotation.y = Math.PI / 4;
+          assetGroup.position.set(bPosX, bPosY, bPosZ);
+          assetGroup.rotation.y = bRotY;
         }
 
         nodeGroup.add(assetGroup);
