@@ -8,27 +8,32 @@ import confetti from 'canvas-confetti';
 
 /**
  * ChapterView sub-component
- * Displays the chapter title, emoji, description, and list of tasks.
+ * Displays the chapter title, emoji, description, and list of tasks with chapter themed styling.
  */
-const ChapterView = React.memo(({ region, tasks, onSelectTask, onClose }) => {
+const ChapterView = React.memo(({ region, regionTheme, tasks, onSelectTask, onClose }) => {
   if (!region) return null;
+
+  const accentHex = regionTheme?.accentColorHex || '#00e5ff';
+  const headerBg = regionTheme?.skyColors ? `linear-gradient(180deg, ${regionTheme.skyColors[1]}, ${regionTheme.skyColors[0]})` : 'none';
 
   return (
     <>
-      <div className="panel-header">
+      <div className="panel-header" style={{ background: headerBg, borderBottom: `1px solid ${accentHex}33` }}>
         <button id="panel-close" onClick={onClose} aria-label="Close Panel">
           &times;
         </button>
-        <div className="panel-icon">{region.emoji}</div>
+        <div className="panel-icon" style={{ border: `1.5px solid ${accentHex}55`, boxShadow: `0 0 12px ${accentHex}33` }}>
+          {region.emoji}
+        </div>
         <h2 id="panel-title">{region.title}</h2>
-        <span id="panel-sub">{region.sub || 'District'}</span>
+        <span id="panel-sub" style={{ color: accentHex }}>{region.sub || 'District'}</span>
       </div>
 
       <div className="panel-body">
         <p id="panel-desc">{region.desc}</p>
 
         <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <h3 style={{ fontSize: '14px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: '#8aabcc' }}>
+          <h3 style={{ fontSize: '14px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: accentHex }}>
             Tasks
           </h3>
           {tasks.map((task) => {
@@ -46,16 +51,16 @@ const ChapterView = React.memo(({ region, tasks, onSelectTask, onClose }) => {
                   padding: '14px 18px',
                   borderRadius: '16px',
                   background: isCompleted
-                    ? 'rgba(26, 127, 90, 0.15)'
+                    ? 'rgba(26, 127, 90, 0.2)'
                     : isLocked
                     ? 'rgba(255, 255, 255, 0.02)'
-                    : 'rgba(255, 255, 255, 0.06)',
+                    : `${accentHex}10`,
                   border: `1.5px solid ${
                     isCompleted
-                      ? 'rgba(26, 127, 90, 0.3)'
+                      ? '#4ade8055'
                       : isLocked
                       ? 'rgba(255, 255, 255, 0.05)'
-                      : 'rgba(255, 255, 255, 0.12)'
+                      : `${accentHex}44`
                   }`,
                   cursor: isLocked ? 'not-allowed' : 'pointer',
                   opacity: isLocked ? 0.5 : 1,
@@ -69,7 +74,7 @@ const ChapterView = React.memo(({ region, tasks, onSelectTask, onClose }) => {
                   <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#ffffff' }}>
                     {task.title}
                   </h4>
-                  <span style={{ fontSize: '11px', color: isCompleted ? '#4ade80' : isLocked ? '#8a9bb0' : '#00e5ff' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: isCompleted ? '#4ade80' : isLocked ? '#8a9bb0' : accentHex }}>
                     {task.status.toUpperCase()}
                   </span>
                 </div>
@@ -86,16 +91,18 @@ ChapterView.displayName = 'ChapterView';
 
 /**
  * TaskView sub-component
- * Displays details of a specific task, its rewards, and a complete task button.
+ * Displays details of a specific task, its rewards, and a complete task button themed with chapter colors.
  */
-const TaskView = React.memo(({ task, onBack, onComplete }) => {
+const TaskView = React.memo(({ task, regionTheme, onBack, onComplete }) => {
   if (!task) return null;
 
   const isCompleted = task.status === 'completed';
+  const accentHex = regionTheme?.accentColorHex || '#00e5ff';
+  const headerBg = regionTheme?.skyColors ? `linear-gradient(180deg, ${regionTheme.skyColors[1]}, ${regionTheme.skyColors[0]})` : 'none';
 
   return (
     <>
-      <div className="panel-header" style={{ height: '140px' }}>
+      <div className="panel-header" style={{ height: '140px', background: headerBg, borderBottom: `1px solid ${accentHex}33` }}>
         <button
           id="panel-task-back"
           onClick={onBack}
@@ -104,7 +111,7 @@ const TaskView = React.memo(({ task, onBack, onComplete }) => {
             top: 12,
             left: 12,
             background: 'rgba(255, 255, 255, 0.06)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            border: `1px solid ${accentHex}44`,
             color: '#ffffff',
             padding: '4px 12px',
             borderRadius: '99px',
@@ -119,7 +126,7 @@ const TaskView = React.memo(({ task, onBack, onComplete }) => {
         >
           ← Back
         </button>
-        <span id="panel-sub" style={{ marginTop: '16px', color: isCompleted ? '#4ade80' : '#ffea00' }}>
+        <span id="panel-sub" style={{ marginTop: '16px', color: isCompleted ? '#4ade80' : accentHex, fontWeight: 800, letterSpacing: '1px' }}>
           {isCompleted ? 'TASK COMPLETED' : 'ACTIVE TASK'}
         </span>
         <h2 id="panel-title" style={{ marginTop: '8px', textAlign: 'center', padding: '0 16px' }}>
@@ -132,7 +139,7 @@ const TaskView = React.memo(({ task, onBack, onComplete }) => {
 
         {task.rewards && task.rewards.length > 0 && (
           <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <h3 style={{ fontSize: '14px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: '#8aabcc' }}>
+            <h3 style={{ fontSize: '14px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: accentHex }}>
               Rewards
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '10px' }}>
@@ -143,8 +150,8 @@ const TaskView = React.memo(({ task, onBack, onComplete }) => {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    background: `${accentHex}0f`,
+                    border: `1px solid ${accentHex}33`,
                     borderRadius: '12px',
                     padding: '12px 16px',
                     gap: '12px',
@@ -169,9 +176,10 @@ const TaskView = React.memo(({ task, onBack, onComplete }) => {
           style={{
             background: isCompleted
               ? 'rgba(255, 255, 255, 0.1)'
-              : 'linear-gradient(135deg, #1a7f5a, #2563eb)',
+              : `linear-gradient(135deg, ${accentHex}, ${regionTheme?.skyColors ? regionTheme.skyColors[1] : '#2563eb'})`,
             cursor: isCompleted ? 'not-allowed' : 'pointer',
             opacity: isCompleted ? 0.6 : 1,
+            boxShadow: isCompleted ? 'none' : `0 4px 20px ${accentHex}44`,
           }}
         >
           {isCompleted ? 'Task Already Completed' : 'Complete Task'}
@@ -261,32 +269,44 @@ const Panel = React.memo(() => {
     }
   };
 
-  const activeRegion = REGIONS[activeRegionId] || null;
-  // Filter tasks belonging to the active region (district) based on ID prefix or region configuration tasks.
-  // The tasks are loaded from journeyStore, which dynamically tracks progression status.
-  const regionTasks = tasks.filter((t) => t.id.startsWith(activeRegionId));
-
   const activeTask = tasks.find((t) => t.id === activeTaskId) || null;
+  
+  // Determine region from activeTask if available, otherwise activeRegionId
+  const taskRegionId = activeTask ? (activeTask.id.split('_')[0] || activeRegionId) : activeRegionId;
+  const regionData = REGIONS[taskRegionId] || REGIONS[activeRegionId] || null;
+  const chapterTasks = tasks.filter((t) => t.id.startsWith(regionData?.id || activeRegionId));
+
+  const themeConfig = regionData?.theme || {};
+  const accentHex = themeConfig.accentColor 
+    ? `#${themeConfig.accentColor.toString(16).padStart(6, '0')}` 
+    : '#00e5ff';
+  const regionTheme = {
+    skyColors: themeConfig.skyColors || ['#0d211f', '#122a27', '#1b3c38'],
+    accentColorHex: accentHex,
+  };
 
   return (
-    <div
+    <div 
       id="panel"
       ref={panelRef}
       style={{
-        // Remove standard transition for transform to prevent conflicts with GSAP
-        transition: 'opacity 0.3s ease, visibility 0.3s ease',
+        backgroundColor: regionTheme.skyColors[0],
+        border: `1.5px solid ${regionTheme.accentColorHex}44`,
+        boxShadow: `-4px 0 32px rgba(0, 0, 0, 0.4), 0 0 20px ${regionTheme.accentColorHex}22`,
       }}
     >
       {panelView === 'task' ? (
         <TaskView
           task={activeTask}
+          regionTheme={regionTheme}
           onBack={handleBackToChapter}
           onComplete={handleCompleteTask}
         />
       ) : (
         <ChapterView
-          region={activeRegion}
-          tasks={regionTasks}
+          region={regionData}
+          regionTheme={regionTheme}
+          tasks={chapterTasks}
           onSelectTask={handleSelectTask}
           onClose={closePanel}
         />
