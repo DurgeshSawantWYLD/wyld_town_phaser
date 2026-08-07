@@ -33,9 +33,9 @@ the active district — creating a seamless journey through 4 completely distinc
 | **Node Texture** | Canvas 2D API (`createCandyButtonTexture()`) | Per-node — redrawn on status change |
 | **Standee Textures** | Canvas 2D API (`createCardboardTexture()`) | 6 types: yeti, popcorn_cart, candy_cane, soda_can, sneaker, puppy |
 | **Globe Geometry** | `THREE.SphereGeometry(r=90, 64, 64)` | MeshToonMaterial — flat toon shading |
-| **Road Geometry** | CatmullRomCurve3 + custom ribbon mesh | Smooth S-curve; 240 segment ribbon, width = 3.6 units |
+| **Road Geometry** | CatmullRomCurve3 + custom ribbon mesh | Wavy border & continuous serpentine curve; 240 segment ribbon, width = 5.4 units |
 | **Animations** | GSAP | Globe rotation, node pop, biome color transitions, standee breathing |
-| **Camera** | PerspectiveCamera, FOV 45 | High-angle looking down at Y=3.5 |
+| **Camera** | PerspectiveCamera, FOV 45 | Ground-up incline view (Y=24.0, Z=31.0, lookAt Y=3.5) with ~25% sky ratio |
 | **State** | Zustand `journeyStore` | Tasks passed in via `levelMap.setTasks(allTasks, activeTaskId)` |
 
 ---
@@ -44,19 +44,13 @@ the active district — creating a seamless journey through 4 completely distinc
 
 ### 3.1 Camera & Scene Framing
 
-- Camera: `position(0, 22, 36)` looking at `(0, 3.5, 0)` on desktop
-- On mobile portrait: camera moves in closer — zoomed to fill width
+### 3.1 Camera & Scene Framing
+
+- Camera: `position(0, 24, 31)` looking at `(0, 3.5, 0)` on desktop
+- Camera angle configured for a ground-up incline perspective with ~25% sky and ~75% land/road view
+- On mobile portrait: camera scales smoothly while preserving the ground-up perspective
 - The globe itself is `radius = 90` units — only the top cap is visible
-- Feel: looking down at a giant holiday snow globe from above
-
-### 3.2 Lighting
-
-| Light | Type | Color | Intensity |
-|---|---|---|---|
-| Ambient | AmbientLight | `#ffffff` | 1.3 |
-| Sun | DirectionalLight | `#fff5ea` (warm white) | 1.8 at `(5, 25, 10)` |
-
-MeshToonMaterial throughout — flat, cartoon aesthetic, no PBR complexity.
+- Feel: looking up a mountain trail ribbon wrapped around a giant sphere
 
 ---
 
@@ -99,8 +93,8 @@ As the user scrolls through tasks 1-40, the environment transitions across 4 bio
 The road is the visual spine of the Level Map — the most iconic element.
 
 ### Road Shape
-- Subtle S-curve snake pattern wrapping vertically around the globe
-- Width: 3.6 units
+- Wavy serpentine curve with level nodes precisely matching the wave central axis (`getWaveOffset`)
+- Width: 5.4 units (expanded wide aesthetic ribbon)
 - Geometry: CatmullRomCurve3 spline with 240-segment ribbon mesh
 
 ### Road Texture (Canvas 2D, 256x256 tileable)
@@ -226,7 +220,8 @@ The transition is gradual and imperceptible in motion — the world slowly trans
 
 When a task node is tapped: fires `onTaskClick(task)` -> `journeyStore.setActiveTask()` -> `cityStore.openPanel()`.
 
-The same Panel component from the 3D City Map handles the display.
+The Panel component (`Panel.jsx`) handles the display and dynamically themes its container background, gradient headers, back button borders, task items, reward cards, and CTA buttons to match the active region/chapter (`accentColor` + `skyColors`).
+
 Refer to **Section 4.3** of `DESIGN_BRIEF_3D.md` for full Panel / Task View design spec.
 
 ---
